@@ -1,5 +1,3 @@
-// Use arrow function to replace add() with anonymous function
-
 export default function getNeighborhoodsList () {
   this.sanFranciscoNeighborhoods = ['SOMA', 'Union Square'];
 
