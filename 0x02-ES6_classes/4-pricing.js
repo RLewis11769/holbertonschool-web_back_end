@@ -12,7 +12,16 @@ export default class Pricing {
   displayFullPrice() {
     // Returns attributes in format "amount currency_name (currency_code)"
     // Which is "amount displayFullCurrency()"
-    return `${this.amount} ${this.currency.displayFullCurrency()}`
+    return `${this.amount} ${this.currency.displayFullCurrency()}`;
+  }
+
+  static convertPrice(amount, conversionRate) {
+    // Returns conversion of amount based on conversionRate
+    if (typeof conversionRate !== 'number' || typeof amount !== 'number') {
+      throw new TypeError('Unable to convert this amount');
+    } else {
+      return amount * conversionRate;
+    }
   }
 
   get amount() {
