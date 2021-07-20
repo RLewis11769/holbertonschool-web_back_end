@@ -21,7 +21,7 @@ export default function createIteratorObject(report) {
           if (count < empList.length) {
             count += 1;
             // Returns are similar to yield here bc of next()
-            return { done: false, value: empList[count -1] };
+            return { done: false, value: empList[count - 1] };
           }
           return { done: true };
         },
@@ -29,17 +29,17 @@ export default function createIteratorObject(report) {
     },
   };
 
-// // Default string iterator example
-// // Comment out when not used as example
-// const str = 'hi';
-// console.log(typeof str[Symbol.iterator]); // "function"
+  // // Default string iterator example
+  // // Comment out when not used as example
+  // const str = 'hi';
+  // console.log(typeof str[Symbol.iterator]); // "function"
 
-// const iterator = str[Symbol.iterator]();
-// console.log(iterator  + ''); // "[object String Iterator]"
+  // const iterator = str[Symbol.iterator]();
+  // console.log(iterator  + ''); // "[object String Iterator]"
 
-// console.log(iterator.next()); // { value: "h", done: false }
-// console.log(iterator.next()); // { value: "i", done: false }
-// console.log(iterator.next()); // { value: undefined, done: true }
-// // Just so function will return without error
-// console.log(report)
+  // console.log(iterator.next()); // { value: "h", done: false }
+  // console.log(iterator.next()); // { value: "i", done: false }
+  // console.log(iterator.next()); // { value: undefined, done: true }
+  // // Just so function will return without error
+  // console.log(report)
 }
