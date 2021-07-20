@@ -4,8 +4,10 @@ export default class Building {
   constructor(sqft) {
     // Create and initialize objects
     this.sqft = sqft;
-    if (this.constructor !== 'Building' && this.evacuationWarningMessage === undefined) {
-      throw Error('Class extending Building must override evacuationWarningMessage');
+
+    // Throw error if class that extends from this class doesn't have specific method
+    if (this.constructor !== Building && this.evacuationWarningMessage === undefined) {
+      throw new Error('Class extending Building must override evacuationWarningMessage');
     }
   }
 
@@ -16,10 +18,11 @@ export default class Building {
 
   set sqft(value) {
     // Setter method to typecheck value passed into sqft as number
-    if (typeof value === 'number') {
-      this._sqft = value;
-    } else {
-      throw new TypeError('Sqft must be a number');
-    }
+    // if (typeof value === 'number') {
+    //   this._sqft = value;
+    // } else {
+    //   throw new TypeError('Sqft must be a number');
+    // }
+    this._sqft = value;
   }
 }
