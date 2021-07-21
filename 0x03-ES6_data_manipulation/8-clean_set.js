@@ -1,6 +1,6 @@
 export default function cleanSet(setToCheck, startStr) {
   // If values in setToCheck start with startStr, return values without startStr
-  if (startStr === '') {
+  if (startStr === '' || typeof startStr !== 'string') {
     return '';
   }
   const arr = [];
