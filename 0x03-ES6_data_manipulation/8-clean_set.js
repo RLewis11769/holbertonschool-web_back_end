@@ -5,7 +5,7 @@ export default function cleanSet(setToCheck, startStr) {
   }
   const arr = [];
   for (const val of setToCheck) {
-    if (val.startsWith(startStr)) {
+    if (typeof val === 'string' && val.startsWith(startStr)) {
       arr.push(val.slice(startStr.length));
     }
   }
