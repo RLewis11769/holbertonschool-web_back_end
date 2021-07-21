@@ -10,6 +10,7 @@ export default class HolbertonClass {
   // eslint-disable-next-line consistent-return
   [Symbol.toPrimitive](obj) {
     // Overrides default when converting object to "primitive type"
+    // This is metaprogramming aka accessing underlying mechanics
     if (obj === 'number') {
       return this.size;
     }

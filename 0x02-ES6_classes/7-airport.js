@@ -9,6 +9,7 @@ export default class Airport {
 
   get [Symbol.toStringTag]() {
     // Overrides default string description of object used via Object.prototype.toString() method
+    // This is metaprogramming aka accessing underlying mechanics
     return `${this.code}`;
   }
 

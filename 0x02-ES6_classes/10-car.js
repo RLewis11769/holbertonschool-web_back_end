@@ -9,25 +9,21 @@ export default class Car {
   }
 
   static get [Symbol.species]() {
-    // Points to constructor value so classes can create new versions of themselves
+    // Points to constructor value
+    // Used so classes can create new versions of themselves
     return this;
   }
 
   cloneCar() {
+    // Returns new object of class
+    // Using Symbol.species provides customizable entry point for type of class (Car or subclass)
+    // Rather than this.constructor which would only work for Car
+    // This is metaprogramming aka accessing underlying mechanics
     const Species = this.constructor[Symbol.species];
+    // Same as calling Car("brand", "motor", "color") outside class
+    // Returns object with parameters used when calling cloneCar() so can be undefined
     return new Species(this.brand, this.motor, this.color);
   }
-
-  // Don't throw errors haha, glad I spent forever on this
-  // static validator(name, value) {
-  //   // Data validator to make sure value of name is string (hardcode for eslint)
-  //   // Not sure if working perfectly - full error
-  //   if (typeof value !== 'string') {
-  //     throw new TypeError(`${name} must be a string`);
-  //   } else {
-  //     return value;
-  //   }
-  // }
 
   get brand() {
     // Getter method to declare brand as this._brand
@@ -61,4 +57,17 @@ export default class Car {
     // this._color = Car.validator('Color', value);
     this._color = value;
   }
+
+  // // Don't throw errors haha, glad I spent forever on this - here for reference
+  // // Called by Car.validator("Motor", value, "string")
+  // static validator(name, value) {
+  //   // Data validator to make sure value of name is type
+  //   // Not sure if working perfectly - giving full error
+  //   // Not eslint-approved
+  //   if (typeof value !== `${type}`) {
+  //     throw new TypeError(`${name} must be a ${type}`);
+  //   } else {
+  //     return value;
+  //   }
+  // }
 }

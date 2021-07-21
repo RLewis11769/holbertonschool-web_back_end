@@ -1,7 +1,7 @@
 import Building from './5-building';
 
 export default class SkyHighBuilding extends Building {
-  // fkdjkld
+  // Methods and attributes of class inheriting from Building
 
   constructor(sqft, floors) {
     // Create and initialize objects

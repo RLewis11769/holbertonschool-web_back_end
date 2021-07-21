@@ -6,6 +6,8 @@ export default class Building {
     this.sqft = sqft;
 
     // Throw error if class that extends from this class doesn't have specific method
+    // this.constructor===Building refers to any classes extending this "abstract" class
+    // Needs to be in constructor
     if (this.constructor !== Building && this.evacuationWarningMessage === undefined) {
       throw new Error('Class extending Building must override evacuationWarningMessage');
     }
@@ -17,12 +19,7 @@ export default class Building {
   }
 
   set sqft(value) {
-    // Setter method to typecheck value passed into sqft as number
-    // if (typeof value === 'number') {
-    //   this._sqft = value;
-    // } else {
-    //   throw new TypeError('Sqft must be a number');
-    // }
+    // Setter method that just sets value, no typechecking due to main file
     this._sqft = value;
   }
 }
