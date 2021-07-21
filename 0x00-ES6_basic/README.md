@@ -1,8 +1,8 @@
-# ES6 Basics
+# JavaScript Basics as of ES6
 
-## Projects
+## Mandatory
 
-### ** Run with: npm run dev main.js
+<span style="font-size:larger;">***Run with: npm run dev main.js**</span>
 
 ### 0-constants.js
 - Modify given functions to instantiate variables with keywords
@@ -24,14 +24,14 @@
         - 2main.js
 
 ### 3-default-parameter.js
-- Modify given function to condense to one line instead of if statements for defaults
+- Modify given function to condense to one line (orig uses if statements for defaults)
     - Define default parameter values
     - Used with:
         - 3main.js
 
 ### 4-rest-parameter.js
 - Return number of arguments passed
-    - Use rest syntax to count number of args
+    - Use rest operator syntax to count number of args
     - Used with:
         - 4main.js
 
@@ -43,7 +43,7 @@
 
 ### 6-string-interpolation.js
 - Modify given function to use template literals to return variable values
-    - Use string interpolation aka replacing placeholders with values in a string literal
+    - Use string interpolation instead of concatenating strings and variables with +
     - Used with:
         - 6main.js
 
@@ -55,19 +55,20 @@
 
 ### 8-getBudgetCurrentYear.js
 - Modify given function to use computed property names as keys
-    - Replace budget object instead of declaring empty dict and adding key-value pairs
+    - Return completed budget object instead of declaring empty dict and adding key-value pairs
     - Used with:
         - 8main.js
 
 ### 9-getFullBudget.js
 - Modify given function to use method properties
-    - Replace functions in object
+    - Shorthand syntax for method definition based on name
     - Used with:
         - 9main.js
 
 ### 10-loops.js
 - Modify given function to use for...of operator
-    - Replace for...in loop with for...of loop (no index)
+    - Replace for...in loop with for...of loop which has no index
+        - Essentially for idx of array, idx is shorthand for array[i]
     - Used with:
         - 10main.js
 
@@ -77,6 +78,21 @@
         - 11main.js
 
 ### 12-createReportObject.js
-- Two returns: object and return of function
+- Return parameter with return value of function
+    - Two returns: object and return of function
     - Used with:
         - 12main.js
+
+## Advanced
+
+### 100-createIteratorObject.js
+- Return iterator for object values
+    - Essentially @@iterator method for object
+    - Based on string default iteration behavior as seen in commented-out example
+    - Used with:
+        - 100main.js
+
+### 101-iterateThroughObject.js
+- Use iterator method from 100-createIteratorObject.js
+    - Used with:
+        - 100main.js
