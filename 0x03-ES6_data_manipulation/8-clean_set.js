@@ -1,5 +1,6 @@
 export default function cleanSet(setToCheck, startStr) {
-  // If values in setToCheck start with startStr, return values without startStr
+  // Return values from setToCheck without startStr if values start with startStr
+
   if (startStr === '' || typeof startStr !== 'string') {
     return '';
   }

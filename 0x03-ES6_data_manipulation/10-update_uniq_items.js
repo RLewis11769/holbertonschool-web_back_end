@@ -1,5 +1,6 @@
 export default function updateUniqueItems(map) {
   // Update map quantity to 100 if currently 1 (or 'Cannot process' if not map)
+
   if (!(map instanceof Map)) {
     throw new Error('Cannot process');
   } else {

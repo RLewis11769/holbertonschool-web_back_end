@@ -1,6 +1,6 @@
 export default function updateStudentGradeByCity(studentList, city, newGrades) {
-  // Returns array of students from specified city with new grade added
-  // note: newGrades is array of grade objects that contains studentid and grade
+  // Returns array of students from specified city with new grade added (must use map/filter)
+  // Note: newGrades is array of grade objects that contains studentid and grade
 
   // Returns list with changes made based on filter/map
   return studentList
@@ -17,8 +17,6 @@ export default function updateStudentGradeByCity(studentList, city, newGrades) {
           addGrade = grade.grade;
         }
       });
-      // console.log(obj);
-      console.log(addGrade);
       // Returns everything in each student obj with grade from addGrade added to obj
       return { ...student, grade: addGrade };
     });

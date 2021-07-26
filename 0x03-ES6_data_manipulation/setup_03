@@ -76,7 +76,6 @@ echo 'module.exports = {
       excludedFiles: "babel.config.js",
     }
   ]
-};
-' > .eslintrc.js
+};' > .eslintrc.js
 
 npm install
