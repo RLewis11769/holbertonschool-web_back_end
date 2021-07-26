@@ -6,16 +6,16 @@ export default async function asyncUploadUser() {
   return Promise.allSettled([uploadPhoto(), createUser()])
     .then((data) => {
       // Note: Similar to 6 but actually returns data!
-      const arr = {};
+      const obj = {};
       // Only works if both promises resolve
       if (data[0].status === 'fulfilled' && data[1].status === 'fulfilled') {
         // Adds values from resolve/then at keys photo and user
-        arr.photo = data[0].value;
-        arr.user = data[1].value;
+        obj.photo = data[0].value;
+        obj.user = data[1].value;
       } else {
-        arr.photo = null;
-        arr.user = null;
+        obj.photo = null;
+        obj.user = null;
       }
-      return arr;
+      return obj;
     });
 }
