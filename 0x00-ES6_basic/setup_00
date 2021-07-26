@@ -78,5 +78,3 @@ echo "module.exports = {
 };" > .eslintrc.js
 
 npm install
-
-npm i -g eslint
