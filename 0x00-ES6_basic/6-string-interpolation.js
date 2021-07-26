@@ -1,4 +1,6 @@
 export default function getSanFranciscoDescription() {
+  // Use template literal/string interpolation to use variables instead of + syntax
+
   const year = 2017;
   const budget = {
     income: '$119,868',
