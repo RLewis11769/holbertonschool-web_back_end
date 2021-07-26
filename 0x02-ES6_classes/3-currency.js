@@ -1,3 +1,5 @@
+// Implement method in class
+
 export default class Currency {
   // Attributes and methods for Currency class
 

@@ -1,3 +1,5 @@
+// Implement abstract class with if for child classes
+
 export default class Building {
   // Attributes and methods of Pricing class (inherits from Currency)
 

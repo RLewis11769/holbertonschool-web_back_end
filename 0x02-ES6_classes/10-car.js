@@ -1,3 +1,5 @@
+// Implements method that returns new object of class (whether parent or child)
+
 export default class Car {
   // Attributes and methods for Airport class
 
@@ -9,8 +11,7 @@ export default class Car {
   }
 
   static get [Symbol.species]() {
-    // Points to constructor value
-    // Used so classes can create new versions of themselves
+    // Points to constructor value so each class can create new versions of themselves
     return this;
   }
 
@@ -20,8 +21,8 @@ export default class Car {
     // Rather than this.constructor which would only work for Car
     // This is metaprogramming aka accessing underlying mechanics
     const Species = this.constructor[Symbol.species];
-    // Same as calling Car("brand", "motor", "color") outside class
-    // Returns object with parameters used when calling cloneCar() so can be undefined
+    // Same as calling Car("brand", "motor", "color") outside class (undefined in example in main)
+    // Returns object with parameters used when calling cloneCar() so can be undefined (as in main)
     return new Species(this.brand, this.motor, this.color);
   }
 

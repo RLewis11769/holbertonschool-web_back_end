@@ -1,3 +1,5 @@
+// Modify default string description via metaprogramming Symbol.toStringTag
+
 export default class Airport {
   // Attributes and methods for Airport class
 

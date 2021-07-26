@@ -1,3 +1,5 @@
+// Fix code - multiple issues but hoisting primary
+
 export class HolbertonClass {
   constructor(year, location) {
     this._year = year;
@@ -42,5 +44,10 @@ const student3 = new StudentHolberton('Albert', 'Clinton', class2019);
 const student4 = new StudentHolberton('Donald', 'Bush', class2019);
 const student5 = new StudentHolberton('Jason', 'Sandler', class2019);
 
+// Declare as const to hoist to top of scope so can be added to lexical environment
+// Notice student1 etc (and all variables) used before this line
 const listOfStudents = [student1, student2, student3, student4, student5];
+
+// Before: return export default listOfStudents = [student1, student2, student3, student4, student5]
+// Therefore students were not recognized in scope
 export default listOfStudents;

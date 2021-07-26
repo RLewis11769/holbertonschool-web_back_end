@@ -1,6 +1,10 @@
+// Implement basic class
+
 export default class ClassRoom {
-  // Implement ClassRoom class that accepts maxStudentsSize attribute
+  // Attributes and methods for ClassRoom class
+
   constructor(maxStudentsSize) {
+    // Instantiates attributes in class
     this._maxStudentsSize = maxStudentsSize;
   }
 }

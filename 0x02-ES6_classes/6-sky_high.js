@@ -1,10 +1,13 @@
 import Building from './5-building';
 
+// Implement child class/class that extends other class with super
+
 export default class SkyHighBuilding extends Building {
   // Methods and attributes of class inheriting from Building
 
   constructor(sqft, floors) {
     // Create and initialize objects
+    // No need to get/set sqft because done in parent class Building
     super().sqft = sqft;
     this.floors = floors;
   }

@@ -1,3 +1,5 @@
+// Override default response when converting/casting object via metaprogramming
+
 export default class HolbertonClass {
   // Attributes and methods for HolbertonClass class
 
@@ -12,9 +14,11 @@ export default class HolbertonClass {
     // Overrides default when converting object to "primitive type"
     // This is metaprogramming aka accessing underlying mechanics
     if (obj === 'number') {
+      // Default NaN
       return this.size;
     }
     if (obj === 'string') {
+      // Default [object Object]
       return this.location;
     }
   }

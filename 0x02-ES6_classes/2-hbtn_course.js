@@ -1,3 +1,5 @@
+// Implement getters and setters for class attributes
+
 export default class HolbertonCourse {
   // Attributes and methods for HolbertonCourse class
 

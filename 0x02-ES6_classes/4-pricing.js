@@ -1,5 +1,8 @@
 import Currency from './3-currency';
 
+// Implement method that references another class
+// Implement static method
+
 export default class Pricing {
   // Attributes and methods of Pricing class (inherits from Currency)
 
