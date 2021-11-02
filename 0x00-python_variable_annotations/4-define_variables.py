@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Type-annotated function """
+""" Type-annotated variables """
 
 
 a: int = 1
