@@ -16,7 +16,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         # wait_random asyncronously starts each task
         task_list.append(asyncio.create_task(wait_random(max_delay)))
     # As each task is completed, it's waited for and then appended
-    # wait is just a coroutine object containing float
+    # task is just a coroutine object containing float
     for task in asyncio.as_completed(task_list):
         completed: float = await task
         # Now completed can be accessed - this can't be one line
