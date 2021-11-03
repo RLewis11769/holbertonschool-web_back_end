@@ -1,6 +1,6 @@
 # Python Variable Annotations
 
-## Tasks
+## Mandatory
 
 ### 0-add.py
 - Returns type-annotated sum of two floats as float
@@ -52,6 +52,25 @@
 	- Used with:
 		- 9main.py
 
+## Advanced
+
+### 100-safe_first_element.py
+- Returns first element of sequenceable object if exists or None if doesn't
+	- Used with:
+		- 100main.py
+
+### 101-safely_get_value.py
+- Returns value (of any type) of dict key (of any type) if exists or None if doesn't
+- Using TypeVar variable
+	- Used with:
+		- 101main.py
+
+### 102-type_checking.py
+- Edit existing function so uses specific types with no mypy errors
+- Can change args passed, args accepted, return, etc.
+	- Used with:
+		- 102main.py
+
 ## pep8
 
 ### Install pep8:
@@ -101,11 +120,11 @@ mypy filename.py
 
 ### Special
 - -> None (for no return)
-- Vector = List[type] - to define type variable
+- Vector = List[int] - to define type variable
 - T = TypeVar('T') - generic/flexible if List[T] where all indices should be the same type but don't know type
 
 ### Data Structures
-- List[type], Dict[type], Set[type]
+- List, Dict, Mapping, Set
 - Tuple[specify, each, index, type]
 - Iterable: used for anything that can be iterated through, regardless of index
 - Sequence: used for list, tuple, str only - can be indexed
