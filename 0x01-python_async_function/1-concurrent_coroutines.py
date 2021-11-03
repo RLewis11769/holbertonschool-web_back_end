@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """ Type-annotated asynchronous coroutine """
-# import asyncio
-# from random import uniform
 from typing import List
 import asyncio
 wait_random = __import__('0-basic_async_syntax').wait_random
@@ -9,7 +7,7 @@ wait_random = __import__('0-basic_async_syntax').wait_random
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """ Async function that calls wait_random n number of times """
-    # wait_list holds coroutine objects holding floats
+    # task_list holds coroutine objects holding floats
     task_list: List = []
     # complete_list holds floats
     complete_list: List[float] = []
