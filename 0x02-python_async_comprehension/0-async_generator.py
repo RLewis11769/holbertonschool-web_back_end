@@ -3,10 +3,10 @@
 
 from random import uniform
 from asyncio import sleep
-from typing import AsyncGenerator
+from typing import Generator
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """ Async function that waits 1 second then yields random num 10 times """
     for x in range(10):
         # Asyncio sleep is non-blocking while time sleep is blocking
