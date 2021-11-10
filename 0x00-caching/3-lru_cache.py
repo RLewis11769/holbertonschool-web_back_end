@@ -21,7 +21,7 @@ class LRUCache(BaseCaching):
                 # popitem returns first or last with last as default
                 # So set last=False to choose first
                 discard = self.cache_data.popitem(last=False)
-                print('Discard: {}'.format(discard[0]))
+                print('DISCARD: {}'.format(discard[0]))
 
     def get(self, key):
         """ Get method to return value at key """
