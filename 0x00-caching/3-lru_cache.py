@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """ Class that inherits from BaseCaching and implements LeastRecentlyUsed cache """
+    """ Class that inherits from BaseCaching and implements LRU cache """
 
     def __init__(self):
         """ Init new instance variable as OrderedDict instead of dict """

@@ -2,6 +2,7 @@
 """ Module that defines BasicCache class/caching system """
 from base_caching import BaseCaching
 
+
 class LIFOCache(BaseCaching):
     """ Class that inherits from BaseCaching and implements LIFO cache """
 

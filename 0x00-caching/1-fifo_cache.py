@@ -16,7 +16,7 @@ class FIFOCache(BaseCaching):
         if (key and item):
             self.cache_data[key] = item
             if len(self.cache_data) > self.MAX_ITEMS:
-                # popitem deletes and returns dict at first index (in this case)
+                # popitem deletes and returns dict at first index
                 k, v = self.cache_data.popitem(last=False)
                 print('DISCARD: {}'.format(k))
 
