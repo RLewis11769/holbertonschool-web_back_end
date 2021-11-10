@@ -18,9 +18,11 @@ class LRUCache(BaseCaching):
             self.cache_data[key] = item
             self.cache_data.move_to_end(key)
         if len(self.cache_data) > self.MAX_ITEMS:
-            # popitem returns first or last with last as default
-            # So set last=False to choose first
-            self.cache_data.popitem(last=False)
+                # popitem returns first or last with last as default
+                # So set last=False to choose first
+                discard = self.cache_data.popitem(last=False)
+                print('Discard: {}'.format(discard[0]))
+
     def get(self, key):
         """ Get method to return value at key """
         # if key not in self.cache_data:
