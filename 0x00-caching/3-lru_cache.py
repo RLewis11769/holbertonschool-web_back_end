@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """ Class that inherits from BaseCaching and implements LIFO cache """
+    """ Class that inherits from BaseCaching and implements LeastRecentlyUsed cache """
 
     def __init__(self):
         """ Init new instance variable as OrderedDict instead of dict """
@@ -17,16 +17,14 @@ class LRUCache(BaseCaching):
             # Assign value and move data to end of dict
             self.cache_data[key] = item
             self.cache_data.move_to_end(key)
-        if len(self.cache_data) > self.MAX_ITEMS:
-                # popitem returns first or last with last as default
-                # So set last=False to choose first
-                discard = self.cache_data.popitem(last=False)
-                print('DISCARD: {}'.format(discard[0]))
+        if (len(self.cache_data) > self.MAX_ITEMS):
+            # popitem returns first or last with last as default
+            # So set last=False to choose first
+            discard = self.cache_data.popitem(last=False)
+            print('DISCARD: {}'.format(discard[0]))
 
     def get(self, key):
         """ Get method to return value at key """
-        # if key not in self.cache_data:
-        #     return None
         if key and key in self.cache_data:
             # if access key, more recently used so move to end
             self.cache_data.move_to_end(key)
