@@ -27,7 +27,7 @@ class MRUCache(BaseCaching):
 
     def get(self, key):
         """ Get method to return value at key """
-        if key or key in self.cache_data:
+        if key and key in self.cache_data:
             # if access key, more recently used so move to end
             self.cache_data.move_to_end(key)
             return self.cache_data[key]
