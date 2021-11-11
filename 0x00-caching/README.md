@@ -48,27 +48,27 @@
 ### FIFO
 - FIRST In, First Out
 	- Organizes data where oldest/first/head of queue is replaced first
-![FIFO](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/FIFO.png)
+![FIFO](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/pics/FIFO.png)
 
 ### LIFO
 - LAST In, First Out
 	- Organizes data where newest/last/tail of queue is replaced first
-![LIFO](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/LIFO.png)
+![LIFO](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/pics/LIFO.png)
 
 ### LRU
 - LEAST Recently Used
 	- Organizes data to keep recently-accessed items near the top of cache. Whenever a new item is accessed, the LRU places it at the top of the cache. When the cache limit has been reached, items that have been accessed less recently will be removed starting from the bottom of the cache.
-![LRU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/LRU.png)
+![LRU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/pics/LRU.png)
 
 ### MRU
 - MOST Recently Used
 	- Organizes data to keep distantly-accessed items. Whenever a new item is accessed, the LRU places it at the top of the cache. When the cache limit has been reached, items that have been accessed most recently will be removed starting from the top of the cache.
-![MRU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/MRU.png)
+![MRU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/pics/MRU.png)
 
 ### LFU
 - Least FREQUENTLY Used
 	- Organizes data by using a counter to keep track of how often an entry is accessed. The item with the lowest count is removed first.
-![LFU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/LFU.png)
+![LFU](https://github.com/RLewis11769/holbertonschool-web_back_end/blob/main/0x00-caching/pics/LFU.png)
 
 ## Learning Objectives
 
