@@ -36,10 +36,11 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """ doc """
+        """ Retrieves dict of rows based on index given """
+        """ Deletion-resistent meaning can delete data and still get output """
         assert (type(index) is int and index < len(self.__indexed_dataset))
         # index is current start index of first item on current page
-        # Next page is next index to query with aka index of first item after last item on current page
+        # Next page is index of first item after last item on current page
         next = index + page_size
         # Query dataset with next index to retrieve data
         data = self.dataset()[index: next]
