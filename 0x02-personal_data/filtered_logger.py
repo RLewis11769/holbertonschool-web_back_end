@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """ File containing RedactingFormatter class and helper functions """
-import re
 import logging
+import mysql
+import re
+from os import environ
 from typing import List
 
 
@@ -70,3 +72,18 @@ def get_logger() -> logging.Logger:
     user_data_log.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     user_data_log.propagate = False
     return (user_data_log)
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ Returns database connection """
+    host = environ['PERSONAL_DATA_DB_HOST']
+    user = environ['PERSONAL_DATA_DB_USERNAME']
+    password = environ['PERSONAL_DATA_DB_PASSWORD']
+    database = environ['PERSONAL_DATA_DB_NAME']
+
+    return (mysql.connector.connect(
+        host=host,
+        user=user,
+        passwd=password,
+        database=database
+    ))
