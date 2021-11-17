@@ -67,10 +67,11 @@ def filter_datum(fields: List[str], redaction: str, message: str,
 def get_logger() -> logging.Logger:
     """ Returns created log object and sets settings """
     user_data_log = logging.getLogger("user_data")
-    user_data_log.addHandler(logging.StreamHandler())
     user_data_log.setLevel(logging.INFO)
-    user_data_log.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     user_data_log.propagate = False
+    handler = logging.StreamHandler()
+    handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    user_data_log.addHandler(handler)
     return (user_data_log)
 
 
@@ -94,7 +95,9 @@ def main():
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users")
-    for row in cursor:
+    all = cursor.fetchall()
+    print(all)
+    for row in all:
         log.info(row)
     db.close()
 
