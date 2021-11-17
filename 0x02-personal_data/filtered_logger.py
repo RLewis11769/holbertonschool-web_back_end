@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ File containing RedactingFormatter class and helper functions """
 import logging
-import mysql
+import mysql.connector
 import re
 from os import environ
 from typing import List
