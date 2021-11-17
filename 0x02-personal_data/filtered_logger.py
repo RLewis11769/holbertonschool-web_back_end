@@ -66,11 +66,17 @@ def filter_datum(fields: List[str], redaction: str, message: str,
 
 def get_logger() -> logging.Logger:
     """ Returns created log object and sets settings """
+    # Create logger with given name
     user_data_log = logging.getLogger("user_data")
+    # Set minimum level of logger to INFO
     user_data_log.setLevel(logging.INFO)
+    # Make sure doesn't propagate messages to other loggers
     user_data_log.propagate = False
+    # Create file handler with formatter
     handler = logging.StreamHandler()
-    handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    # Create formatter to pass fields to be obfuscated
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    # Add handler to logger
     user_data_log.addHandler(handler)
     return (user_data_log)
 
@@ -88,18 +94,3 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         passwd=password,
         database=database
     ))
-
-def main():
-    """ Main function """
-    log = get_logger()
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM users")
-    all = cursor.fetchall()
-    print(all)
-    for row in all:
-        log.info(row)
-    db.close()
-
-if __name__ == "__main__":
-    main()
