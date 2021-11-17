@@ -94,3 +94,26 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         passwd=password,
         database=database
     ))
+
+
+def main():
+    """ Obtain database connection, retrieve all rows in users table,
+     and display in specified format """
+    log = get_logger()
+    db = get_db()
+    # Create cursor to execute queries with names of fields included
+    cursor = db.cursor(dictionary=True)
+    # Query for all rows in users table
+    cursor.execute("SELECT * FROM users")
+    for row in cursor:
+        # Create list of tuples consisting of dict's key/value pairs
+        tuple_list = row.items()
+        # Convert to string of key/value pairs with separator
+        str = '; '.join(f"{tuple[0]}={tuple[1]}" for tuple in tuple_list)
+        # Pass string to logger to log in specified format
+        log.info(str)
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
