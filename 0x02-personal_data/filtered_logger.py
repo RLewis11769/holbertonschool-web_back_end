@@ -87,3 +87,16 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         passwd=password,
         database=database
     ))
+
+def main():
+    """ Main function """
+    log = get_logger()
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+    for row in cursor:
+        log.info(row)
+    db.close()
+
+if __name__ == "__main__":
+    main()
