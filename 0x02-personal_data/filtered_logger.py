@@ -61,11 +61,12 @@ def filter_datum(fields: List[str], redaction: str, message: str,
         message = re.sub(regex, redaction, message)
     return (message)
 
+
 def get_logger() -> logging.Logger:
     """ Returns created log object and sets settings """
     user_data_log = logging.getLogger("user_data")
     user_data_log.addHandler(logging.StreamHandler())
     user_data_log.setLevel(logging.INFO)
-    user_data_log.setFormatter(RedactingFormatter(list(self.PII_FIELDS)))
+    user_data_log.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     user_data_log.propagate = False
     return (user_data_log)
