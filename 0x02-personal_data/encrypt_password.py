@@ -5,26 +5,26 @@ import bcrypt
 
 def hash_password(password: str) -> bytes:
     """
-    Return salted, hashed password as byte string
+    Returns salted, hashed password as byte string
 
     Args:
         password: password to be hashed
-    Returns hashed password as byte string
     """
-    pw = password.encode('utf-8')
+    # Salt is fixed-length random value added to input
+    # Makes sure unique hash for each input
     salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(pw, salt)
-    return (hashed_password)
+    # Return hashed password with salt
+    return (bcrypt.hashpw(password, salt))
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
     """
-    Validate that provided password matches hashed password
+    Returns T/F validatation that provided password matches hashed password
 
     Args:
         hashed_password: hashed password to be compared/verified
         password: password to be compared/verified
     Returns True if password is valid, False otherwise
     """
-    pw = password.encode('utf-8')
-    return (bcrypt.checkpw(pw, hashed_password))
+    # Use built-in checkpw function to compare hashed password
+    return (bcrypt.checkpw(password, hashed_password))
