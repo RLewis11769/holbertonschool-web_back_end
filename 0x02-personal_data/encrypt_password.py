@@ -10,11 +10,13 @@ def hash_password(password: str) -> bytes:
     Args:
         password: password to be hashed
     """
+    # Encode password to bytes
+    pw = password.encode('utf-8')
     # Salt is fixed-length random value added to input
     # Makes sure unique hash for each input
     salt = bcrypt.gensalt()
     # Return hashed password with salt
-    return (bcrypt.hashpw(password, salt))
+    return (bcrypt.hashpw(pw, salt))
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
@@ -26,5 +28,7 @@ def is_valid(hashed_password: bytes, password: str) -> bool:
         password: password to be compared/verified
     Returns True if password is valid, False otherwise
     """
+    # Encode password to bytes
+    pw = password.encode('utf-8')
     # Use built-in checkpw function to compare hashed password
     return (bcrypt.checkpw(password, hashed_password))
