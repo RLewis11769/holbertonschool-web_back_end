@@ -82,5 +82,5 @@ class BasicAuth(Auth):
                 # is_valid_pw in user class - pass in pwd, True is valid user
                 if user.is_valid_password(user_pwd):
                     return (user)
-        except:
+        except Exception:
             return (None)
