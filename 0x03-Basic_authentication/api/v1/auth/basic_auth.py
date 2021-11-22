@@ -2,7 +2,9 @@
 """ Class to manage Basic API authentication """
 from api.v1.auth.auth import Auth
 from base64 import b64decode
-from typing import Tuple
+from models.base import DATA
+from models.user import User
+from typing import Tuple, TypeVar
 
 
 class BasicAuth(Auth):
@@ -37,7 +39,7 @@ class BasicAuth(Auth):
             return b64decode(base64_authorization_header).decode("utf-8")
         except Exception:
             # Exceptions include not string and None
-            return(None)
+            return (None)
 
     def extract_user_credentials(self,
                                  decoded_base64_authorization_header:
@@ -52,9 +54,30 @@ class BasicAuth(Auth):
         if (decoded_base64_authorization_header is None or
             type(decoded_base64_authorization_header) is not str or
            ":" not in decoded_base64_authorization_header):
-            return(None, None)
+            return (None, None)
         else:
             # Note: authorization header is in the form "email:password"
             # Split auth header into email and password values on :
             # Cast returned list as tuple
-            return(tuple(decoded_base64_authorization_header.split(":")))
+            return (tuple(decoded_base64_authorization_header.split(":")))
+
+    def user_object_from_credentials(self, user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
+        """
+        Return user instance based on email and password
+
+        Args:
+            user_email: User email
+            user_pwd: User password
+        """
+        if user_email is None or type(user_email) is not str:
+            return (None)
+        if user_pwd is None or type(user_pwd) is not str:
+            return (None)
+        # Search in base class - pass in dict, returns list
+        search = User.search({'email': user_email})
+        # Iterate through list to get string for use
+        for user in search:
+            # is_valid_pw in user class - pass in pwd, True is valid user
+            if user.is_valid_password(user_pwd):
+                return (user)
