@@ -76,11 +76,10 @@ class BasicAuth(Auth):
             return (None)
         # Search in base class - pass in dict, returns list
         search = User.search({'email': user_email})
-        if len(search) == 0:
-            return (None)
-        # Iterate through list to get string for use
-        for user in search:
-            # is_valid_pw in user class - pass in pwd, True is valid user
-            if user.is_valid_password(user_pwd):
-                return (user)
+        if len(search) != 0:
+            # Iterate through list to get string for use
+            for user in search:
+                # is_valid_pw in user class - pass in pwd, True is valid user
+                if user.is_valid_password(user_pwd):
+                    return (user)
         return (None)
