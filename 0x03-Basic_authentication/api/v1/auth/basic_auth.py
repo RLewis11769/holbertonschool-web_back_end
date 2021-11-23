@@ -16,9 +16,8 @@ class BasicAuth(Auth):
         Returns Base64 part of Authorization header
 
         Args:
-            authorization_header: Encoded authorization header
+            authorization_header: Encoded auth header that starts with "Basic "
         """
-        # Note: authorization header starts with "Basic "
         if authorization_header is not None:
             if type(authorization_header) is str:
                 if authorization_header.startswith("Basic "):
@@ -58,7 +57,7 @@ class BasicAuth(Auth):
         else:
             # Note: authorization header is in the form "email:password"
             # Split auth header into email and password values on :
-            # Cast returned list as tuple
+            # Cast returned list from split as tuple
             return (tuple(decoded_base64_authorization_header.split(":")))
 
     def user_object_from_credentials(self, user_email: str,
@@ -87,7 +86,9 @@ class BasicAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
+        Overrides current_user method in Auth class
         Retrieves user instance object for request when given auth header
+        Combine all functions above to return user instance object
 
         Args:
             request: global request object default
