@@ -51,7 +51,8 @@ def before_request():
     # Create list of allowed endpoints
     auth_list = ["/api/v1/status/",
                  "/api/v1/unauthorized",
-                 "/api/v1/forbidden"]
+                 "/api/v1/forbidden",
+                 "/api/v1/auth_session/login/"]
 
     # Make sure auth has valid endpoint
     if auth and auth.require_auth(request.path, auth_list):
@@ -61,8 +62,10 @@ def before_request():
         if auth.current_user(request) is None:
             # Not a current user raises forbidden
             abort(403)
-        else:
-            request.current_user = auth.current_user(request)
+        if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
+            # No session cookie raises unauthorized
+            abort(401)
+        request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
