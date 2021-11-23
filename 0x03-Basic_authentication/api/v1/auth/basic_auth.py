@@ -76,9 +76,9 @@ class BasicAuth(Auth):
             return (None)
         try:
             # Search in base class - pass in dict, returns list
-            search = User.search({'email': user_email})
+            search_list = User.search({'email': user_email})
             # Iterate through list to get string for use
-            for user in search:
+            for user in search_list:
                 # is_valid_pw in user class - pass in pwd, True is valid user
                 if user.is_valid_password(user_pwd):
                     return (user)
@@ -87,10 +87,10 @@ class BasicAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        Overloads Auth function and retrieves user intance for request
-        
+        Retrieves user instance object for request when given auth header
+
         Args:
-            request: 
+            request: global request object default
         """
         auth = request.headers.get('Authorization')
         header = self.extract_base64_authorization_header(auth)
