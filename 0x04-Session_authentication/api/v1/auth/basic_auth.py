@@ -2,7 +2,6 @@
 """ Class to manage Basic API authentication """
 from api.v1.auth.auth import Auth
 from base64 import b64decode
-from models.base import DATA
 from models.user import User
 from typing import Tuple, TypeVar
 

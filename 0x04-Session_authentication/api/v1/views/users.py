@@ -25,16 +25,18 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
+    if user_id is None:
+        abort(404)
+    # api/v1/users/me is stand-in for current user's id
     if user_id == 'me' and request.current_user is None:
         abort(404)
     if user_id == 'me' and request.current_user is not None:
         return jsonify(request.current_user.to_json())
-    if user_id is None:
-        abort(404)
+    # api/v1/users/user_id gets data for any user
     user = User.get(user_id)
     if user is None:
         abort(404)
-    return jsonify(user.to_json())
+    return (jsonify(user.to_json()))
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
@@ -52,7 +54,7 @@ def delete_user(user_id: str = None) -> str:
     if user is None:
         abort(404)
     user.remove()
-    return jsonify({}), 200
+    return (jsonify({}), 200)
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
@@ -90,7 +92,7 @@ def create_user() -> str:
             return jsonify(user.to_json()), 201
         except Exception as e:
             error_msg = "Can't create User: {}".format(e)
-    return jsonify({'error': error_msg}), 400
+    return (jsonify({'error': error_msg}), 400)
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
@@ -123,4 +125,4 @@ def update_user(user_id: str = None) -> str:
     if rj.get('last_name') is not None:
         user.last_name = rj.get('last_name')
     user.save()
-    return jsonify(user.to_json()), 200
+    return (jsonify(user.to_json()), 200)
