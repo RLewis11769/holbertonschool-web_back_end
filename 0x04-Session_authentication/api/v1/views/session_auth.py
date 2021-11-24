@@ -34,3 +34,12 @@ def login():
             # Set cookie to session id
             response.set_cookie(getenv('SESSION_NAME'), session_id)
             return (response)
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ jkjf """
+    from api.v1.app import auth
+    # If works, return 200 status code - OK
+    if (auth.destroy_session(request)):
+        return (jsonify({}), 200)
+    abort(404)

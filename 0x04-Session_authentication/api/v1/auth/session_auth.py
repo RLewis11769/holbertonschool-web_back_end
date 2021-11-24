@@ -51,3 +51,22 @@ class SessionAuth(Auth):
         user_id = self.user_id_for_session_id(session_id)
         # Return user instance based on user id
         return (User.get(user_id))
+
+    def destroy_session(self, request=None):
+        """
+        Deletes session id from dict
+
+        Args:
+            request: Flask request object
+        """
+        if request is None:
+            return (False)
+        # Session id is saved as cookie value
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return (False)
+        # Delete session id from dict
+        user = self.user_id_by_session_id.pop(session_id)
+        if user is None:
+            return (False)
+        return (True)
