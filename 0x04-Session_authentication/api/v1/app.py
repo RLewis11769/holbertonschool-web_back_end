@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 from os import getenv
+from typing import Dict
 
 
 app = Flask(__name__)
@@ -46,7 +47,7 @@ def not_found(error) -> str:
 
 
 @app.before_request
-def before_request():
+def before_request() -> Dict:
     """ Filter requests to proper error handlers if necessary """
     # Create list of allowed endpoints
     auth_list = ["/api/v1/status/",
@@ -56,15 +57,17 @@ def before_request():
 
     # Make sure auth has valid endpoint
     if auth and auth.require_auth(request.path, auth_list):
+        if (auth.authorization_header(request) is None and
+           auth.session_cookie(request) is None):
+            # No session cookie raises unauthorized
+            abort(401)
         if auth.authorization_header(request) is None:
             # No proper authorization header raises unauthorized
             abort(401)
         if auth.current_user(request) is None:
             # Not a current user raises forbidden
             abort(403)
-        if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
-            # No session cookie raises unauthorized
-            abort(401)
+
         request.current_user = auth.current_user(request)
 
 
