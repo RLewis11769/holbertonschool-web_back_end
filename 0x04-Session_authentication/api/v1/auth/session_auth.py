@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """ Class to manage Session authentication """
+from typing import TypeVar
 from api.v1.auth.auth import Auth
+from flask import request
+from models.user import User
 from uuid import uuid4
 
 
@@ -34,3 +37,17 @@ class SessionAuth(Auth):
         if session_id is None or type(session_id) is not str:
             return (None)
         return (self.user_id_by_session_id.get(session_id))
+
+    def current_user(self, request=None) -> TypeVar:
+        """
+        Return user instance based on cookie value
+
+        Args:
+            request: Flask request object
+        """
+        # Session id is saved as cookie value
+        session_id = self.session_cookie(request)
+        # Get user id based on session id
+        user_id = self.user_id_by_session_id(session_id)
+        # Return user instance based on user id
+        return (User.get(user_id))
