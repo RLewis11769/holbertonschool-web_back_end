@@ -61,9 +61,6 @@ def before_request() -> Dict:
            auth.session_cookie(request) is None):
             # No session cookie raises unauthorized
             abort(401)
-        # if auth.authorization_header(request) is None:
-        #     # No proper authorization header raises unauthorized
-        #     abort(401)
         if auth.current_user(request) is None:
             # Not a current user raises forbidden
             abort(403)

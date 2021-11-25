@@ -11,7 +11,14 @@ from os import getenv
 @app_views.route('/auth_session/login', methods=['POST'],
                  strict_slashes=False)
 def login():
-    """ kdj """
+    """
+    Handles all routes for session auth login
+
+    Retrieve post data from request, validate, and create new session
+    Returns json response with dict representation of user
+    Sets cookie to response with value of session id
+    """
+    # Retrieve post data with request.form.get
     email = request.form.get('email')
     if email is None:
         return (jsonify({"error": "email missing"}), 400)
@@ -40,9 +47,11 @@ def login():
 @app_views.route('/auth_session/logout', methods=['DELETE'],
                  strict_slashes=False)
 def logout():
-    """ jkjf """
+    """
+    Deletes session id from cookie based on request
+    """
     from api.v1.app import auth
-    # If works, return 200 status code - OK
+    # If function returns true, return 200 status code - OK
     if (auth.destroy_session(request)):
         return (jsonify({}), 200)
     abort(404)
