@@ -19,7 +19,7 @@ def login():
         return (jsonify({"error": "password missing"}), 400)
     search = User.search({'email': email})
     if len(search) == 0:
-        return (jsonify({"error": "no user found for this email"}), 401)
+        return (jsonify({"error": "no user found for this email"}), 404)
     for user in search:
         if not user.is_valid_password(pw):
             return (jsonify({"error": "wrong password"}), 401)
