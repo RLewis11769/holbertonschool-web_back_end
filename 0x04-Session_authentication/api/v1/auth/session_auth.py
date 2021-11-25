@@ -63,10 +63,8 @@ class SessionAuth(Auth):
             return (False)
         # Session id is saved as cookie value
         session_id = self.session_cookie(request)
-        if session_id is None:
+        if session_id is None or self.user_id_for_session_id(session_id) is None:
             return (False)
         # Delete session id from dict
-        user = self.user_id_by_session_id.pop(session_id)
-        if user is None:
-            return (False)
+        self.user_id_by_session_id.pop(session_id)
         return (True)
