@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+""" Authorization module """
 from bcrypt import hashpw, gensalt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
