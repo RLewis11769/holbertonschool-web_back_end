@@ -53,3 +53,20 @@ class DB:
             raise NoResultFound
         except InvalidRequestError:
             raise InvalidRequestError
+
+    def update_user(self, user_id: int, **kwargs: dict) -> User:
+        """
+        Updates given user by given args and returns updated object
+
+        Args:
+            user_id: user's id
+            kwargs: dict of args to update by
+        """
+        user = self.find_user_by(id=user_id)
+        try:
+            for key, value in kwargs.items():
+                setattr(user, key, value)
+            self._session.commit()
+            return (user)
+        except ValueError:
+            raise ValueError
