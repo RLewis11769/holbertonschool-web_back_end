@@ -47,7 +47,7 @@ class DB:
             kwargs: dict of args to filter by
         """
         try:
-            return self._session.query(User).filter_by(**kwargs).first()
+            return self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
             raise NoResultFound
         except InvalidRequestError:
