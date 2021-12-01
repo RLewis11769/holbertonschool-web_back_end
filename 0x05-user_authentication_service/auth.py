@@ -74,6 +74,19 @@ class Auth:
         except Exception:
             return (None)
 
+    def destroy_session(self, user_id: int) -> None:
+        """
+        Destroy/delete session for user with given ID
+
+        Args:
+            user_id: ID of user to destroy session for
+        """
+        try:
+            user = self._db.find_user_by(id=user_id)
+            self._db.update_user(user.id, session_id=None)
+        except Exception:
+            return (None)
+
 
 def _hash_password(password: str) -> bytes:
     """
