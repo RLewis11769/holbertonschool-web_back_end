@@ -41,7 +41,7 @@ class Auth:
             user = self._db.find_user_by(email=email)
             pw = password.encode('utf-8')
             return checkpw(pw, user.hashed_password)
-        except NoResultFound:
+        except Exception:
             return (False)
 
     def create_session(self, email: str) -> str:
@@ -86,6 +86,23 @@ class Auth:
             self._db.update_user(user.id, session_id=None)
         except Exception:
             return (None)
+
+    def get_reset_password_token(self, email: str) -> str:
+        """
+        Return newly-created reset password token
+        Find user corresponding to given email, generate new uuid as
+            reset_token, store in database, and return new token
+
+        Args:
+            email: email of user to create reset token for
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            reset_token = _generate_uuid()
+            self._db.update_user(user.id, reset_token=reset_token)
+            return (reset_token)
+        except Exception:
+            raise ValueError
 
 
 def _hash_password(password: str) -> bytes:
