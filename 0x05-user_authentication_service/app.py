@@ -68,11 +68,24 @@ def profile():
 
 @app.route("/reset_password", methods=['POST'])
 def get_reset_password_token():
-    """ Route to reset password """
+    """ Route to get reset token """
     try:
         email = request.form.get('email')
         reset_token = AUTH.get_reset_password_token(email)
         return jsonify({'email': email, 'reset_token': reset_token}), 200
+    except Exception:
+        abort(403)
+
+
+@app.route("/reset_password", methods=['PUT'])
+def reset_password():
+    """ Route to reset password """
+    try:
+        email = request.form.get('email')
+        reset_token = request.form.get('reset_token')
+        new_password = request.form.get('new_password')
+        AUTH.reset_password(reset_token, new_password)
+        return jsonify({'email': email, 'message': 'Password updated'}), 200
     except Exception:
         abort(403)
 
