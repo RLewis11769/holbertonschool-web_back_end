@@ -35,7 +35,6 @@ def login():
     # If not valid credentials (return False), abort immediately
     if not (AUTH.valid_login(email=email, password=pw)) or not email or not pw:
         abort(401)
-
     # If valid, create session_id, set cookie, and return (cannot fail)
     session_id = AUTH.create_session(email=email)
     response = jsonify({'email': email, 'message': 'logged in'})
@@ -68,7 +67,7 @@ def profile():
 
 @app.route("/reset_password", methods=['POST'])
 def get_reset_password_token():
-    """ Route to get reset token """
+    """ Route to get reset token for future password reset """
     try:
         email = request.form.get('email')
         reset_token = AUTH.get_reset_password_token(email)

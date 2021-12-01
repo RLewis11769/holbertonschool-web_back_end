@@ -9,9 +9,8 @@ def register_user(email: str, password: str) -> str:
         "email": email,
         "password": password
     }
-    response = requests.post('http://localhost:5000/users', data=data)
-    assert response.status_code == 200 or\
-        response.status_code == 400, "Test fail"
+    response = requests.post('localhost:5000/users', json=data)
+    assert response.status_code == 200
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
@@ -68,7 +67,6 @@ def reset_password_token(email: str) -> str:
     }
     response = requests.post('localhost:5000/reset_password', json=data)
     assert response.status_code == 200
-    return response.json().get('reset_token')
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
