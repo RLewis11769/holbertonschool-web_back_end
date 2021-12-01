@@ -33,7 +33,7 @@ def login():
     email = request.form.get('email')
     pw = request.form.get('password')
     # If not valid credentials (return False), abort immediately
-    if not (AUTH.valid_login(email=email, password=pw)):
+    if not (AUTH.valid_login(email=email, password=pw)) or not email or not pw:
         abort(401)
 
     # If valid, create session_id, set cookie, and return (cannot fail)
@@ -48,7 +48,7 @@ def logout():
     """ Route to delete session_id cookie and redirect """
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
-    if user:
+    if user and session_id:
         AUTH.destroy_session(user.id)
         return redirect('/')
     else:
