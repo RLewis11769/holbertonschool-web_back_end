@@ -2,7 +2,6 @@
 """ Authorization module """
 from auth import Auth
 from flask import abort, Flask, jsonify, request
-from sqlalchemy.orm.exc import NoResultFound
 
 
 AUTH = Auth()
@@ -21,6 +20,7 @@ def register():
     email = request.form.get('email')
     pw = request.form.get('password')
     try:
+        # If new user, register/add
         AUTH.register_user(email=email, password=pw)
         return jsonify({'email': email, 'message': 'user created'})
     except ValueError:
@@ -29,17 +29,18 @@ def register():
 
 @app.route("/sessions", methods=['POST'])
 def login():
-    """ Route to validate user credentials """
+    """ Route to validate user credentials and set session_id cookie """
     email = request.form.get('email')
     pw = request.form.get('password')
-    try:
-        AUTH.valid_login(email=email, password=pw)
-        session_id = AUTH.create_session(email=email)
-        response = jsonify({'email': email, 'message': 'logged in'})
-        response.set_cookie('session_id', session_id)
-        return (response)
-    except Exception:
+    # If not valid credentials (return False), abort immediately
+    if not (AUTH.valid_login(email=email, password=pw)):
         abort(401)
+
+    # If valid, create session_id, set cookie, and return (cannot fail)
+    session_id = AUTH.create_session(email=email)
+    response = jsonify({'email': email, 'message': 'logged in'})
+    response.set_cookie('session_id', session_id)
+    return (response)
 
 
 if __name__ == "__main__":
