@@ -42,7 +42,7 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """
-        Finds user by given args and returns first row as filtered by kwargs input
+        Finds user by given args and returns first row as filtered by kwargs
 
         Args:
             kwargs: dict of args to filter by
@@ -54,21 +54,18 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError
 
-    def update_user(self, user_id: int, **kwargs) -> User:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
-        Updates given user by given args and returns updated object
+        Updates given user by given args, no return
 
         Args:
             user_id: user's id
             kwargs: dict of args to update by
         """
-        user = self.find_user_by(id=user_id)
-        if not user:
-            raise ValueError
         try:
+            user = self.find_user_by(id=user_id)
             for key, value in kwargs.items():
                 setattr(user, key, value)
             self._session.commit()
-            return (user)
         except ValueError:
             raise ValueError

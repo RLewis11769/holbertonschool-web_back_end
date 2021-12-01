@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-""" Contains User class """
+""" Contains SQLAlchemy User class for database named 'users' """
 
 
 Base = declarative_base()
 
 
 class User(Base):
-    """ Information about users database and columns """
+    """ Class defining 'users' database and columns """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
