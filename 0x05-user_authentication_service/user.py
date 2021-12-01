@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+""" Contains SQLAlchemy User class for database named 'users' """
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-""" Contains SQLAlchemy User class for database named 'users' """
 
 
 Base = declarative_base()
