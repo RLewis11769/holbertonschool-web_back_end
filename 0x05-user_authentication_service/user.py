@@ -8,7 +8,7 @@ Base = declarative_base()
 
 
 class User(Base):
-    """ jfjdk """
+    """ Information about users database and columns """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
