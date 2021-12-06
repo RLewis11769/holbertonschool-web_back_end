@@ -37,7 +37,33 @@ class TestGetJson(TestCase):
     def test_get_json(self, url, payload):
         """ Test for get_json returning payload """
         from utils import get_json
-        import requests
         with mock.patch("requests.get") as req:
             req().json.return_value = payload
             self.assertEqual(get_json(url), payload)
+
+    @parameterized.expand([
+    ])
+    def test_get_json_exception(self, url):
+        """ Test for get_json raising exception """
+        from utils import get_json
+        with mock.patch("requests.get") as req:
+            req.side_effect = Exception
+            self.assertRaises(Exception, get_json, url)
+
+class TestMemoize(TestCase):
+    """ Tests for memoize function """
+
+    def test_memoize(self):
+        """ Test for asserting that memoize function sets attr """
+        from utils import memoize
+
+        class TestClass:
+            """ Test class for memoize function """
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        self.assertEqual(TestClass().a_property, 42)
