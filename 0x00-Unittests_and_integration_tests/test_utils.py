@@ -27,6 +27,7 @@ class TestAccessNestedMap(TestCase):
         from utils import access_nested_map
         self.assertRaises(KeyError, access_nested_map, nested_map, path)
 
+
 class TestGetJson(TestCase):
     """ Tests for get_json function """
 
@@ -41,14 +42,6 @@ class TestGetJson(TestCase):
             req().json.return_value = payload
             self.assertEqual(get_json(url), payload)
 
-    @parameterized.expand([
-    ])
-    def test_get_json_exception(self, url):
-        """ Test for get_json raising exception """
-        from utils import get_json
-        with mock.patch("requests.get") as req:
-            req.side_effect = Exception
-            self.assertRaises(Exception, get_json, url)
 
 class TestMemoize(TestCase):
     """ Tests for memoize function """
@@ -66,4 +59,9 @@ class TestMemoize(TestCase):
             def a_property(self):
                 return self.a_method()
 
-        self.assertEqual(TestClass().a_property, 42)
+        real = TestClass()
+        real.a_method = mock.MagicMock()
+        real.a_method.return_value = 42
+        self.assertEqual(real.a_property, 42)
+        self.assertEqual(real.a_property, 42)
+        real.a_method.assert_called_once()
