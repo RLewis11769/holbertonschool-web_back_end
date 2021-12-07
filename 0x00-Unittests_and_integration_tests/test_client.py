@@ -42,10 +42,18 @@ class TestGithubOrgClient(TestCase):
                    new_callable=PropertyMock) as mock_repo:
             cls = GithubOrgClient('org_name')
             # Mock license dict
-            license.return_value = {'org_name': 'url'}
+            license.return_value = {'repos_url': 'url'}
             # Pass org_name to org to retrieve license dict
-            mock_repo.return_value = cls.org.get('org_name')
-            # Now assert using _public_repos_url
+            mock_repo.return_value = cls.org.get('repos_url')
             self.assertEqual(cls.public_repos, 'url')
             license.assert_called_once()
             mock_repo.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False),
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """ Test for GithubOrgClient.has_license if repo has license """
+        cls = GithubOrgClient('org_name')
+        self.assertEqual(cls.has_license(repo, license_key), expected)
