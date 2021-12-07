@@ -74,8 +74,8 @@ class TestIntegrationGithubOrgClient(TestCase):
         Set up class for integration tests
         Mock request.get to return payload
         """
-        cls.patcher = patch("request.get", side_effect=HTTPError)
-        cls.patcher.start()
+        cls.get_patcher = patch("request.get", side_effect=HTTPError)
+        cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
@@ -83,4 +83,4 @@ class TestIntegrationGithubOrgClient(TestCase):
         Teardown for integration tests
         Stop mocking request.get
         """
-        cls.patcher.stop()
+        cls.get_patcher.stop()
