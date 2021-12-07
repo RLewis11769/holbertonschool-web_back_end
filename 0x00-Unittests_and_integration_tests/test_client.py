@@ -72,9 +72,9 @@ class TestIntegrationGithubOrgClient(TestCase):
     def setUpClass(cls):
         """
         Set up class for integration tests
-        Mock request.get to return payload
+        Mock requests.get to return payload
         """
-        cls.get_patcher = patch("request.get", side_effect=HTTPError)
+        cls.get_patcher = patch("requests.get", side_effect=HTTPError)
         cls.get_patcher.start()
 
     @classmethod
