@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """ Unit tests for client.py """
 from client import GithubOrgClient
-from parameterized import parameterized
+from fixtures import TEST_PAYLOAD
+from parameterized import parameterized, parameterized_class
 from unittest import TestCase
 from unittest.mock import patch, MagicMock, PropertyMock
 
@@ -57,3 +58,27 @@ class TestGithubOrgClient(TestCase):
         """ Test for GithubOrgClient.has_license if repo has license """
         cls = GithubOrgClient('org_name')
         self.assertEqual(cls.has_license(repo, license_key), expected)
+
+
+@parameterized_class([
+    {"org_payload": TEST_PAYLOAD[0]},
+    {"repos_payload": TEST_PAYLOAD[1]},
+    {"expected_repos": TEST_PAYLOAD[2]},
+    {"apache2_repos": TEST_PAYLOAD[3]}
+])
+class TestIntegrationGithubOrgClient(TestCase):
+    """ Integration test for GithubOrgClient.public_repos method """
+
+    def setUpClass(self):
+        """
+        Set up class for integration tests
+        Mock request.get to return payload
+        """
+        pass
+
+    def tearDownClass(self):
+        """
+        Teardown for integration tests
+        Stop mocking request.get
+        """
+        pass
