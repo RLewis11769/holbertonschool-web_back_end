@@ -67,16 +67,18 @@ class TestGithubOrgClient(TestCase):
     {"apache2_repos": TEST_PAYLOAD[3]}
 ])
 class TestIntegrationGithubOrgClient(TestCase):
-    """ Integration test for GithubOrgClient.public_repos method """
+    """ Integration tests for GithubOrgClient.public_repos method """
 
-    def setUpClass(self):
+    @classmethod
+    def setUpClass(cls):
         """
         Set up class for integration tests
         Mock request.get to return payload
         """
         pass
 
-    def tearDownClass(self):
+    @classmethod
+    def tearDownClass(cls):
         """
         Teardown for integration tests
         Stop mocking request.get
