@@ -60,12 +60,10 @@ class TestGithubOrgClient(TestCase):
         self.assertEqual(cls.has_license(repo, license_key), expected)
 
 
-@parameterized_class([
-    {"org_payload": TEST_PAYLOAD[0]},
-    {"repos_payload": TEST_PAYLOAD[1]},
-    {"expected_repos": TEST_PAYLOAD[2]},
-    {"apache2_repos": TEST_PAYLOAD[3]}
-])
+@parameterized_class(
+    ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
+    TEST_PAYLOAD
+)
 class TestIntegrationGithubOrgClient(TestCase):
     """ Integration tests for GithubOrgClient.public_repos method """
 
@@ -75,7 +73,8 @@ class TestIntegrationGithubOrgClient(TestCase):
         Set up class for integration tests
         Mock request.get to return payload
         """
-        pass
+        self.patcher = patch("request.get(url).json()")
+        self.patcher.start()
 
     @classmethod
     def tearDownClass(cls):
@@ -83,4 +82,4 @@ class TestIntegrationGithubOrgClient(TestCase):
         Teardown for integration tests
         Stop mocking request.get
         """
-        pass
+        self.patcher.stop()
