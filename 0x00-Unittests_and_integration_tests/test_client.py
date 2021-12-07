@@ -32,3 +32,20 @@ class TestGithubOrgClient(TestCase):
             # Method doesn't take args but need to mock with org_name for org
             cls = GithubOrgClient('org_name')
             self.assertEqual(cls._public_repos_url, 'url')
+
+    @patch('client.get_json')
+    def test_public_repos(self, license):
+        """ Test for GithubOrgClient.public_repos method """
+        # PropertyMock provides getter/setter methods and calls with no args
+        # public_repos returns value from license using _public_repos_url
+        with patch('client.GithubOrgClient.public_repos',
+                   new_callable=PropertyMock) as mock_repo:
+            cls = GithubOrgClient('org_name')
+            # Mock license dict
+            license.return_value = {'org_name': 'url'}
+            # Pass org_name to org to retrieve license dict
+            mock_repo.return_value = cls.org.get('org_name')
+            # Now assert using _public_repos_url
+            self.assertEqual(cls.public_repos, 'url')
+            license.assert_called_once()
+            mock_repo.assert_called_once()
