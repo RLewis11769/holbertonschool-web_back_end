@@ -44,14 +44,14 @@ class TestGetJson(TestCase):
 
 
 class TestMemoize(TestCase):
-    """ Tests for memoize method """
+    """ Tests for memoize function """
 
     def test_memoize(self):
-        """ Test for memoize """
+        """ Test for asserting that memoize function sets attr """
         from utils import memoize
 
         class TestClass:
-            """ Test class for memoize method """
+            """ Helper class to test with specific return value """
             def a_method(self):
                 return 42
 
@@ -59,6 +59,14 @@ class TestMemoize(TestCase):
             def a_property(self):
                 return self.a_method()
 
+        # MagicMock to mock method/return value
+        test1 = TestClass()
+        test1.a_method = mock.MagicMock(return_value=42)
+        self.assertEqual(test1.a_property, 42)
+        self.assertEqual(test1.a_property, 42)
+        test1.a_method.assert_called_once()
+
+        # patch.object to mock method/return value
         with mock.patch.object(TestClass, "a_method",
                                return_value=42) as mock_method:
             test2 = TestClass()
