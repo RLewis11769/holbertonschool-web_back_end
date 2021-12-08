@@ -71,3 +71,4 @@ class TestGetJson(TestCase):
             test2 = TestClass()
             self.assertEqual(test2.a_property, 42)
             self.assertEqual(test2.a_property, 42)
+            mock_method.assert_called_once()
