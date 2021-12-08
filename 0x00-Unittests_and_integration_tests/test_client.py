@@ -5,7 +5,6 @@ from fixtures import TEST_PAYLOAD
 from parameterized import parameterized, parameterized_class
 from unittest import TestCase
 from unittest.mock import patch, MagicMock, PropertyMock
-from urllib.error import HTTPError
 
 
 class TestGithubOrgClient(TestCase):
@@ -74,7 +73,9 @@ class TestIntegrationGithubOrgClient(TestCase):
         Set up class for integration tests
         Mock requests.get to return payload
         """
-        cls.get_patcher = patch("requests.get", side_effect=HTTPError)
+        cls.get_patcher = patch('requests.get')
+        cls.get_patcher.side_effect = cls.repos_payload
+        cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
