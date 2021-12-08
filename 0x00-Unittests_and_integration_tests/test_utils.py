@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Unit tests for utils.py """
 from parameterized import parameterized
-from unittest import TestCase
+from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock
 from utils import access_nested_map, get_json, memoize
 
