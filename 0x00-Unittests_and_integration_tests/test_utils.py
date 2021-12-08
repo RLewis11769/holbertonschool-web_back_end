@@ -8,7 +8,6 @@ from utils import access_nested_map, get_json, memoize
 
 class TestAccessNestedMap(TestCase):
     """ Tests for access_nested_map function """
-
     # tuple of (nested_map, path, expected value)
     @parameterized.expand([
         ({"a": 1}, ("a"), 1),
@@ -32,6 +31,7 @@ class TestAccessNestedMap(TestCase):
 
 class TestGetJson(TestCase):
     """ Tests for get_json function """
+
     # tuple of (url, payload dict)
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
@@ -45,12 +45,9 @@ class TestGetJson(TestCase):
             # Verify that when pass in url, recieve payload dict
             self.assertEqual(get_json(url), payload)
 
-
-class TestMemoize(TestCase):
-    """ Tests for memoize function """
-
     def test_memoize(self):
         """ Test for asserting that memoize function sets attr """
+        from utils import memoize
 
         class TestClass:
             """ Helper class to test with specific return value """
@@ -74,4 +71,3 @@ class TestMemoize(TestCase):
             test2 = TestClass()
             self.assertEqual(test2.a_property, 42)
             self.assertEqual(test2.a_property, 42)
-            mock_method.assert_called_once()
