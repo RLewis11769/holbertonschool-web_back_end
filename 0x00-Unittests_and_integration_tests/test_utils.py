@@ -2,11 +2,11 @@
 """ Unit tests for utils.py """
 from parameterized import parameterized
 from unittest import TestCase, mock
-from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(TestCase):
     """ Tests for access_nested_map function """
+
     # tuple of (nested_map, path, expected value)
     @parameterized.expand([
         ({"a": 1}, ("a"), 1),
@@ -15,6 +15,7 @@ class TestAccessNestedMap(TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """ Test for access_nested_map function """
+        from utils import access_nested_map
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     # tuple of (nested_map, path) - expect KeyError
@@ -25,6 +26,7 @@ class TestAccessNestedMap(TestCase):
     ])
     def test_access_nested_map_exception(self, nested_map, path):
         """ Test for key error failures of access_nested_map function """
+        from utils import access_nested_map
         self.assertRaises(KeyError, access_nested_map, nested_map, path)
 
 
@@ -38,17 +40,23 @@ class TestGetJson(TestCase):
     ])
     def test_get_json(self, url, payload):
         """ Test for get_json returning payload """
+        from utils import get_json
         with mock.patch("requests.get") as req:
-            # Set return value of requests.get to payload
+            # Set return value of requests.get to payload dict
             req().json.return_value = payload
             # Verify that when pass in url, recieve payload dict
             self.assertEqual(get_json(url), payload)
 
+
+class TestMemoize(TestCase):
+    """ Tests for memoize function """
+
     def test_memoize(self):
         """ Test for asserting that memoize function sets attr """
+        from utils import memoize
 
         class TestClass:
-            """ Helper class to test with specific return value """
+            """ Test class for memoize function """
             def a_method(self):
                 return 42
 
@@ -64,8 +72,7 @@ class TestGetJson(TestCase):
         test1.a_method.assert_called_once()
 
         # patch.object to mock method/return value
-        with mock.patch.object(TestClass, "a_method",
-                          return_value=42) as mock_method:
+        with mock.patch.object(TestClass, "a_method", return_value=42) as mock_method:
             test2 = TestClass()
             self.assertEqual(test2.a_property, 42)
             self.assertEqual(test2.a_property, 42)
