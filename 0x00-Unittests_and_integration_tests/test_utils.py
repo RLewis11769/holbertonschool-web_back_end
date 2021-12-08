@@ -2,7 +2,6 @@
 """ Unit tests for utils.py """
 from parameterized import parameterized
 from unittest import TestCase, mock
-from unittest.mock import patch, MagicMock
 from utils import access_nested_map, get_json, memoize
 
 
@@ -39,7 +38,7 @@ class TestGetJson(TestCase):
     ])
     def test_get_json(self, url, payload):
         """ Test for get_json returning payload """
-        with patch("requests.get") as req:
+        with mock.patch("requests.get") as req:
             # Set return value of requests.get to payload
             req().json.return_value = payload
             # Verify that when pass in url, recieve payload dict
@@ -47,7 +46,6 @@ class TestGetJson(TestCase):
 
     def test_memoize(self):
         """ Test for asserting that memoize function sets attr """
-        from utils import memoize
 
         class TestClass:
             """ Helper class to test with specific return value """
@@ -60,13 +58,13 @@ class TestGetJson(TestCase):
 
         # MagicMock to mock method/return value
         test1 = TestClass()
-        test1.a_method = MagicMock(return_value=42)
+        test1.a_method = mock.MagicMock(return_value=42)
         self.assertEqual(test1.a_property, 42)
         self.assertEqual(test1.a_property, 42)
         test1.a_method.assert_called_once()
 
         # patch.object to mock method/return value
-        with patch.object(TestClass, "a_method",
+        with mock.patch.object(TestClass, "a_method",
                           return_value=42) as mock_method:
             test2 = TestClass()
             self.assertEqual(test2.a_property, 42)
