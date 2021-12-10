@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """ Unit tests for client.py """
 from client import GithubOrgClient
-from fixtures import TEST_PAYLOAD
 from parameterized import parameterized, parameterized_class
-from unittest import TestCase
+from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock, PropertyMock
+from urllib.error import HTTPError
+from fixtures import *
 
 
 class TestGithubOrgClient(TestCase):
@@ -16,7 +17,7 @@ class TestGithubOrgClient(TestCase):
     ])
     # MagicMock creates attributes and methods
     # org returns jsonized dict - so specify return_value dict
-    @patch('client.get_json',
+    @patch("client.get_json",
            MagicMock(return_value={'key': 'value'}))
     def test_org(self, org_name):
         """ Test for GithubOrgClient.org method """
@@ -29,7 +30,7 @@ class TestGithubOrgClient(TestCase):
         # _public_repos_url returns value for key repos_url
         with patch('client.GithubOrgClient.org',
                    new_callable=PropertyMock,
-                   return_value={'repos_url': 'url'}):
+                   return_value={"repos_url": "url"}):
             # Method doesn't take args but need to mock with org_name for org
             cls = GithubOrgClient('org_name')
             self.assertEqual(cls._public_repos_url, 'url')
@@ -73,9 +74,7 @@ class TestIntegrationGithubOrgClient(TestCase):
         Set up class for integration tests
         Mock requests.get to return payload
         """
-        cls.get_patcher = patch('requests.get')
-        cls.get_patcher.side_effect = cls.repos_payload
-        cls.get_patcher.start()
+        cls.get_patcher = patch("requests.get", side_effect=HTTPError)
 
     @classmethod
     def tearDownClass(cls):
