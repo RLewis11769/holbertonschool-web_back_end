@@ -39,10 +39,21 @@ def before_request():
     g.user = get_user()
 
 
+@babel.localeselector
+def get_locale():
+    """ Locale selector to determine language to use on templates """
+    loc = request.args.get('locale')
+    # URL parameters aka ?locale=fr
+    if loc and loc in app.config['LANGUAGES']:
+        return loc
+    # Default locale
+    return request.accept_languages.best_match(Config.LANGUAGES)
+
+
 @app.route("/", methods=['GET'])
 def index():
     """ Index route """
-    return render_template("5-index.html")
+    return render_template("6-index.html")
 
 
 if __name__ == "__main__":
