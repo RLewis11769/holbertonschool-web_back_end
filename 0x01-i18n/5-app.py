@@ -23,19 +23,11 @@ class Config(object):
 app.config.from_object(Config)
 
 
-@babel.localeselector
-def get_locale():
-    """ Locale selector """
-    locale = request.args.get('locale')
-    if locale and locale in app.config['LANGUAGES']:
-        return locale
-    return request.accept_languages.best_match(Config.LANGUAGES)
-
-
 def get_user():
-    """ Get user from request """
+    """ Get user from request header """
     id = request.args.get('login_as')
     try:
+        # Parse login_as=id as int
         return users.get(int(id))
     except Exception:
         return None

@@ -24,6 +24,22 @@ class Config(object):
 app.config.from_object(Config)
 
 
+def get_user():
+    """ Get user from request header """
+    id = request.args.get('login_as')
+    try:
+        # Parse login_as=id as int
+        return users.get(int(id))
+    except Exception:
+        return None
+
+
+@app.before_request
+def before_request():
+    """ Before request to stash user in global """
+    g.user = get_user()
+
+
 @babel.localeselector
 def get_locale():
     """
@@ -48,16 +64,6 @@ def get_locale():
         # Else will fall to here if user is not logged in for 3. Request header
         # Also 4. Default locale
         return request.accept_languages.best_match(Config.LANGUAGES)
-
-
-def get_user():
-    """ Get user from request header """
-    id = request.args.get('login_as')
-    try:
-        # Parse login_as=id as int
-        return users.get(int(id))
-    except Exception:
-        return None
 
 
 @babel.timezoneselector
@@ -92,16 +98,10 @@ def get_timezone():
     return Config.BABEL_DEFAULT_TIMEZONE
 
 
-@app.before_request
-def before_request():
-    """ Before request to stash user in global """
-    g.user = get_user()
-
-
 @app.route("/", methods=['GET'])
 def index():
     """ Index route """
-    return render_template("6-index.html")
+    return render_template("7-index.html")
 
 
 if __name__ == "__main__":

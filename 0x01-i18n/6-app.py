@@ -23,6 +23,22 @@ class Config(object):
 app.config.from_object(Config)
 
 
+def get_user():
+    """ Get user from request header """
+    id = request.args.get('login_as')
+    try:
+        # Parse login_as=id as int
+        return users.get(int(id))
+    except Exception:
+        return None
+
+
+@app.before_request
+def before_request():
+    """ Before request to stash user in global """
+    g.user = get_user()
+
+
 @babel.localeselector
 def get_locale():
     """
@@ -34,8 +50,8 @@ def get_locale():
         3. Request header
         4. Default locale
     """
-    # 1. URL parameters
     loc = request.args.get('locale')
+    # 1. URL parameters
     if loc and loc in app.config['LANGUAGES']:
         return loc
     try:
@@ -44,22 +60,9 @@ def get_locale():
         if user and user['loc'] and user['loc'] in app.config['LANGUAGES']:
             return user['loc']
     except Exception:
+        # Else will fall to here if user is not logged in for 3. Request header
+        # Also 4. Default locale
         return request.accept_languages.best_match(Config.LANGUAGES)
-
-
-def get_user():
-    """ Get user from request header """
-    id = request.args.get('login_as')
-    try:
-        return users.get(int(id))
-    except Exception:
-        return None
-
-
-@app.before_request
-def before_request():
-    """ Before request to stash user in global """
-    g.user = get_user()
 
 
 @app.route("/", methods=['GET'])
