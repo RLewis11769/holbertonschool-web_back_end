@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Task 2 route - configure Babel """
+""" Task 3 route - parameterize template """
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
