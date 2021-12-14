@@ -45,7 +45,7 @@ class Cache():
         Args:
             key: key to retrieve data from Redis database
         """
-        return self._redis.get(key, str)
+        return self.get(key, str)
 
     def get_int(self, key: int) -> str:
         """
@@ -54,4 +54,4 @@ class Cache():
         Args:
             key: key to retrieve data from Redis database
         """
-        return self._redis.get(key, int)
+        return self.get(key, int)
