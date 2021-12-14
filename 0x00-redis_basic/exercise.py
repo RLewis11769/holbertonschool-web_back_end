@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """ File to hold exercises to get more familiar with Redis """
-from typing import Union
+from typing import Callable, Union
 from uuid import uuid4
 import redis
+
 
 class Cache():
     """ Class to cache info in a Redis database """
@@ -23,3 +24,34 @@ class Cache():
         key = str(uuid4())
         self._redis.set(key, data)
         return (key)
+
+    def get(self, key: str, fn: Callable):
+        """
+        Convert data to desired format and return it
+        Conserve original Redis.get behavior if key does not exist
+
+        Args:
+            key: key to retrieve data from Redis database
+            fn: optional function to call if data is not in Redis database
+        """
+        if fn:
+            return fn(self._redis.get(key))
+        return self._redis.get(key)
+
+    def get_str(self, key: str) -> str:
+        """
+        Return data in string format
+
+        Args:
+            key: key to retrieve data from Redis database
+        """
+        return self._redis.get(key, str)
+
+    def get_int(self, key: int) -> str:
+        """
+        Return data in int format
+
+        Args:
+            key: key to retrieve data from Redis database
+        """
+        return self._redis.get(key, int)
