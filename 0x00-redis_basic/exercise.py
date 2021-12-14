@@ -10,9 +10,9 @@ class Cache():
     def __init__(self):
         """ Initialize Redis database """
         self._redis = redis.Redis()
-        self._redis.flushall()
+        self._redis.flushdb()
 
-    def store(self, data: Union[str, bytes, int, float]):
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in key:value pair in Redis database
         Return randomly-generated key associated with given data
