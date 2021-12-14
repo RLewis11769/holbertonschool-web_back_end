@@ -25,7 +25,7 @@ class Cache():
         self._redis.set(key, data)
         return (key)
 
-    def get(self, key: str, fn: Callable):
+    def get(self, key: str, fn: Callable = None) -> Union[str, int]:
         """
         Convert data to desired format and return it
         Conserve original Redis.get behavior if key does not exist
@@ -47,7 +47,7 @@ class Cache():
         """
         return self.get(key, str)
 
-    def get_int(self, key: int) -> str:
+    def get_int(self, key: str) -> int:
         """
         Return data in int format
 
