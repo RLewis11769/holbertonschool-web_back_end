@@ -58,6 +58,18 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable):
+    """
+    Replay history of method calls
+    """
+    local_redis = redis.Redis()
+    qn = method.__qualname__
+    inputs = local_redis.lrange(f"{qn}:inputs", 0, -1)
+    outputs = local_redis.lrange(f"{qn}:outputs", 0, -1)
+    for i, o in zip(inputs, outputs):
+        print(f"{qn}(*{i}) -> {o}")
+
+
 class Cache():
     """ Class to cache info in a Redis database """
 
