@@ -68,7 +68,7 @@ def replay(method: Callable):
     outputs = local_redis.lrange(f"{qn}:outputs", 0, -1)
     print(f"{qn} was called {len(inputs)} times:")
     for i, o in zip(inputs, outputs):
-        print(f"{qn}(*{str(i)}) -> {str(o)}")
+        print(f"{qn}(*{(i).decode('utf-8')}) -> {str(o)}")
 
 
 class Cache():
