@@ -51,7 +51,7 @@ def call_history(method: Callable) -> Callable:
             *args: arguments to be passed to method
         """
         key = method.__qualname__
-        self._redis.rpush(f"{key}:inputs", str(*args))
+        self._redis.rpush(f"{key}:inputs", str(args))
         output = method(self, *args)
         self._redis.rpush(f"{key}:outputs", output)
         return output
