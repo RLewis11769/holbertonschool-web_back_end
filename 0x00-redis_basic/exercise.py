@@ -66,9 +66,9 @@ def replay(method: Callable):
     qn = method.__qualname__
     inputs = local_redis.lrange(f"{qn}:inputs", 0, -1)
     outputs = local_redis.lrange(f"{qn}:outputs", 0, -1)
-    print(f"{qn} was called {len(inputs)} times")
+    print(f"{qn} was called {len(inputs)} times:")
     for i, o in zip(inputs, outputs):
-        print(f"{qn}(*{i}) -> {o}")
+        print(f"{qn}(*{str(i)}) -> {str(o)}")
 
 
 class Cache():
