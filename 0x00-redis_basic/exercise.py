@@ -16,7 +16,7 @@ def count_calls(method: Callable) -> Callable:
     """
 
     @wraps(method)
-    def wrapper(self, value):
+    def wrapper(self, *args):
         """
         Define wrapper to increment counter on each call
 
@@ -28,7 +28,7 @@ def count_calls(method: Callable) -> Callable:
         # Can differentiate between methods with same name based on location
         key = method.__qualname__
         self._redis.incr(key)
-        return method(self, value)
+        return method(self, *args)
     return wrapper
 
 
