@@ -42,9 +42,9 @@ def call_history(method: Callable) -> Callable:
     def wrapper(self, *args):
         """
         Define wrapper to append inputs and outputs to redis
-        :inputs list holds *args
+        :inputs list holds args
         :outputs list holds outputs
-        Returns output of wrapped method (aka :outputs list)
+        Returns output of wrapped method (aka output from :outputs)
 
         Args:
             self: instance itself, so can access Redis instance
@@ -58,17 +58,23 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(method: Callable):
+def replay(method: Callable) -> None:
     """
-    Replay history of method calls
+    Display history of method calls
+
+    Args:
+        method: method print out history of
     """
     local_redis = redis.Redis()
     qn = method.__qualname__
+    # Find entire range of inputs and outputs
     inputs = local_redis.lrange(f"{qn}:inputs", 0, -1)
     outputs = local_redis.lrange(f"{qn}:outputs", 0, -1)
     print(f"{qn} was called {len(inputs)} times:")
     for i, o in zip(inputs, outputs):
-        print(f"{qn}(*{(i).decode('utf-8')}) -> {str(o)}")
+        # Print function name and input/output
+        # Decode bytes to string
+        print(f"{qn}(*{(i).decode('utf-8')}) -> {(o).decode('utf-8')}")
 
 
 class Cache():
