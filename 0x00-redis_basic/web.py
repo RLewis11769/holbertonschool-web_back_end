@@ -24,12 +24,12 @@ def count_calls(method: Callable) -> Callable:
         Returns value of wrapped method
 
         Args:
-            *args: method's arguments - args[0] is url for get_page(url)
+            *args: method's arguments - args[0] is url in get_page(url)
         """
         key = f"count:{args[0]}"
         local_redis.incr(key)
-        local_redis.set(key)
-        local_redis.expire(key, 10)
+        # Set and expire key with key, time in seconds, value of key
+        local_redis.setex(key, 10, local_redis.get(key))
         return method(*args)
     return (wrapper)
 
