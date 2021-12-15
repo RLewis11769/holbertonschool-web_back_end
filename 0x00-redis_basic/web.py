@@ -9,9 +9,9 @@ import requests
 local_redis = redis.Redis()
 
 
-def count_calls(method: Callable) -> Callable:
+def cache_call(method: Callable) -> Callable:
     """
-    Returns method with count of calls added to key "count:{url}"
+    Returns method with tracking on specified url
     Counts number of times method is called
     Adds expiration time in seconds to key
 
@@ -19,7 +19,7 @@ def count_calls(method: Callable) -> Callable:
         method: method to wrap and add count/key expiration to
     """
     @wraps(method)
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         """
         Defines wrapper to count number of calls and sets expiration time
 
@@ -29,12 +29,12 @@ def count_calls(method: Callable) -> Callable:
         key = f"count:{args[0]}"
         local_redis.incr(key)
         # Set and expire key with key, time in seconds, value of key
-        local_redis.setex("key", 10, local_redis.get(key))
-        return method(*args)
+        local_redis.setex(key, 10, local_redis.get(key))
+        return method(*args, **kwargs)
     return (wrapper)
 
 
-@count_calls
+@cache_call
 def get_page(url: str) -> str:
     """ Return HTML content for given URL """
     content = requests.get(url)
