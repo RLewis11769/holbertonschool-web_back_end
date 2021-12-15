@@ -23,10 +23,9 @@ def count_calls(method: Callable) -> Callable:
 
         Args:
             self: instance itself, so can access Redis instance
-            args: arguments for method, aka first/second/third stored in Redis
+            args: method's arguments, as in Cache.store("second")
         """
-        # Qualified name defines specific method
-        # Can differentiate between methods with same name based on location
+        # Qualified name defines specific method, including nesting
         key = method.__qualname__
         self._redis.incr(key)
         return method(self, *args)
@@ -121,19 +120,9 @@ class Cache():
         return self._redis.get(key)
 
     def get_str(self, key: str) -> str:
-        """
-        Returns data in string format
-
-        Args:
-            key: key to cast as string
-        """
+        """ Returns data in string format """
         return self.get(key, str)
 
     def get_int(self, key: str) -> int:
-        """
-        Returns data in int format
-
-        Args:
-            key: key to cast as int
-        """
+        """ Returns data in int format """
         return self.get(key, int)
