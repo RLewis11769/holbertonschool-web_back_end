@@ -28,6 +28,7 @@ def count_calls(method: Callable) -> Callable:
         """
         key = f"count:{args[0]}"
         local_redis.incr(key)
+        local_redis.set(key)
         local_redis.expire(key, 10)
         return method(*args)
     return (wrapper)
