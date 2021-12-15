@@ -19,7 +19,7 @@ def count_calls(method: Callable) -> Callable:
         method: method to wrap and add count/key expiration to
     """
     @wraps(method)
-    def wrapper(*args):
+    def wrapper(self, *args):
         """
         Defines wrapper to count number of calls and sets expiration time
 
