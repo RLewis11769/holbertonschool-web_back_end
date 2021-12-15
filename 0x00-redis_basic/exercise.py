@@ -16,32 +16,36 @@ def count_calls(method: Callable) -> Callable:
     """
 
     @wraps(method)
-    def wrapper(self, value):
+    def wrapper(self, *args) -> Union[int, str]:
         """
-        Define wrapper to increment counter on each call
+        Defines wrapper to increment counter on each call
+        Returns value of wrapped method
 
         Args:
             self: instance itself, so can access Redis instance
-            value: uh
+            args: arguments for method, aka first/second/third stored in Redis
         """
         # Qualified name defines specific method
         # Can differentiate between methods with same name based on location
         key = method.__qualname__
         self._redis.incr(key)
-        return method(self, value)
-    return wrapper
+        return method(self, *args)
+    return (wrapper)
 
 
 def call_history(method: Callable) -> Callable:
     """
-    Append input parameters to :inputs list in redis
-    Append output to :outputs list in redis
+    Appends input parameters to :inputs list in redis
+    Appends output to :outputs list in redis
     Returns method with history attached
+
+    Args:
+        method: method that is wrapped and adds history to
     """
     @wraps(method)
-    def wrapper(self, *args):
+    def wrapper(self, *args) -> Union[int, str]:
         """
-        Define wrapper to append inputs and outputs to redis
+        Defines wrapper to append inputs and outputs to redis
         :inputs list holds args
         :outputs list holds outputs
         Returns output of wrapped method (aka output from :outputs)
@@ -54,16 +58,18 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(f"{key}:inputs", str(args))
         output = method(self, *args)
         self._redis.rpush(f"{key}:outputs", output)
-        return output
-    return wrapper
+        return (output)
+    return (wrapper)
 
 
 def replay(method: Callable) -> None:
     """
-    Display history of method calls
+    Displays history of method calls
+    Prints how many times method was called and key/value pairs
+        of inputs/outputs in specific format
 
     Args:
-        method: method print out history of
+        method: method to print out history of
     """
     local_redis = redis.Redis()
     qn = method.__qualname__
@@ -71,6 +77,7 @@ def replay(method: Callable) -> None:
     inputs = local_redis.lrange(f"{qn}:inputs", 0, -1)
     outputs = local_redis.lrange(f"{qn}:outputs", 0, -1)
     print(f"{qn} was called {len(inputs)} times:")
+    # Zip two lists into tuple pairs
     for i, o in zip(inputs, outputs):
         # Print function name and input/output
         # Decode bytes to string
@@ -81,7 +88,7 @@ class Cache():
     """ Class to cache info in a Redis database """
 
     def __init__(self):
-        """ Initialize Redis database """
+        """ Initializes Redis database """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
@@ -109,13 +116,13 @@ class Cache():
             fn: optional function to call if data is not in Redis database
         """
         if fn:
-            # If string, essentially cast with str(key)
+            # Essentially cast with str(key) or int(key)
             return fn(self._redis.get(key))
         return self._redis.get(key)
 
     def get_str(self, key: str) -> str:
         """
-        Return data in string format
+        Returns data in string format
 
         Args:
             key: key to cast as string
@@ -124,7 +131,7 @@ class Cache():
 
     def get_int(self, key: str) -> int:
         """
-        Return data in int format
+        Returns data in int format
 
         Args:
             key: key to cast as int
