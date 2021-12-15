@@ -30,6 +30,7 @@ def count_calls(method: Callable) -> Callable:
         local_redis.incr(key)
         # Set and expire key with key, time in seconds, value of key
         local_redis.setex(key, 10, local_redis.get(key))
+        return method(*args)
     return (wrapper)
 
 
