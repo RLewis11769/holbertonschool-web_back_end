@@ -19,7 +19,7 @@ def cache_call(method: Callable) -> Callable:
         method: method to wrap and add count/key expiration to
     """
     @wraps(method)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args):
         """
         Defines wrapper to count number of calls and sets expiration time
 
@@ -30,7 +30,7 @@ def cache_call(method: Callable) -> Callable:
         local_redis.incr(key)
         # Set and expire key with key, time in seconds, value of key
         local_redis.setex(key, 10, local_redis.get(key))
-        return method(*args, **kwargs)
+        return method(*args)
     return (wrapper)
 
 
