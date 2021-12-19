@@ -1,5 +1,11 @@
 # Session Authentication
 
+## Description
+
+In this project, you will implement a Session Authentication. You are not allowed to install any other module.
+
+In the industry, you should NOT implement your own Session authentication system and should instead use a module or framework that does it for you (like in Python-Flask: [Flask-HTTPAuth](https://flask-httpauth.readthedocs.io/en/latest/)). Here, for learning purposes, we will walk through each step of this mechanism to understand it better by doing.
+
 ## Tasks
 
 ### 0
@@ -141,12 +147,6 @@
 
 ## Setup
 
-Make sure all requirements installed:
-
-```
-pip3 install -r requirements.txt
-```
-
 In one terminal run:
 
 ```
@@ -159,3 +159,11 @@ While that terminal is still running, in second terminal run:
 $ curl "http://0.0.0.0:5000/api/v1/status"
 { "status": "OK" }
 ```
+
+## Learning Objectives
+
+- What authentication means
+- What session authentication means
+- What Cookies are
+- How to send Cookies
+- How to parse Cookies

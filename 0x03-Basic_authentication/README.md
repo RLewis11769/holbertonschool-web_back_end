@@ -1,5 +1,11 @@
 # Basic Authentication
 
+## Description
+
+In this project, you will learn what the authentication process means and implement a Basic Authentication on a simple API.
+
+In the industry, you should not implement your own authentication system and should use a module or framework that does it for you. Here we will just walk through each step of this authentication to understand what is happening behind the scenes with error pages, password comparison, headers, requests, encoding, etc.
+
 ## Tasks
 
 ### 1
@@ -146,3 +152,11 @@ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 ```
 curl "http://0.0.0.0:5000/api/v1/status" -vvv
 ```
+
+## Learning Objectives
+
+- What authentication means
+- What Base64 is
+- How to encode a string in Base64
+- What Basic authentication means
+- How to send the Authorization header
