@@ -1,4 +1,4 @@
-// Add new attribute to given document in "school" collection
+// Update name="Holberton school" document with address attribute
 db.school.update(
 	{name: "Holberton school"},
 	{
