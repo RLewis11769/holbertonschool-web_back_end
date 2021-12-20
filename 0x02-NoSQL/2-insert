@@ -1,0 +1,3 @@
+// Insert document into "school" collection
+// Document has attribute "name" with value "Holberton school"
+db.name.insert( {name: "Holberton school"} )
