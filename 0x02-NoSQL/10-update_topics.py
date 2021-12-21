@@ -15,9 +15,7 @@ def update_topics(mongo_collection, name, topics):
     if mongo_collection is None:
         return []
     else:
-        # Update_one meaning only one document will be updated
-        # Matched_count meaning how many updated (happens to each)
-        return mongo_collection.update_one(
+        return mongo_collection.update_many(
             {'name': name},
-            {'$set': {'topics': topics}}
+            { '$set': {'topics': topics} }
         )
