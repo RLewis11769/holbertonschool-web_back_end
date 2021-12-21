@@ -20,4 +20,4 @@ def update_topics(mongo_collection, name, topics):
         return mongo_collection.update_one(
             {'name': name},
             {'$set': {'topics': topics}}
-        ).matched_count
+        )
