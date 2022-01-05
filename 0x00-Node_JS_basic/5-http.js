@@ -33,7 +33,7 @@ const app = http
         })
         .catch((error) => {
           res.write(error.message);
-          res.end();
+          res.end(error.message);
         });
     }
   })
