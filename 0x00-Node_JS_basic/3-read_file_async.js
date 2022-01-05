@@ -22,26 +22,23 @@ const countStudents = async (path) => {
   // Get unique values of "field" field
   const eachField = [...new Set(field)];
 
+  const dict = {};
   for (let x = 0; x < eachField.length; x += 1) {
-    // Return list of students for each field
-    const studentsPerField = lines
-      // This only works because field is last element in line
-      // Filter into data for each "field" field
-      .filter((line) => line.endsWith(eachField[x]))
-      .map((line) => {
-        // Split each line by comma into array
-        const stdnt = line.split(',');
-        // Return student name (first index)
-        return stdnt[0];
-      });
-    console.log(
-      `Number of students in ${eachField[x]}: ${
-        studentsPerField.length
-      }. List: ${studentsPerField.join(', ')}`,
-    );
+    // Get number of students in each field
+    const numStudents = field.filter((field) => field === eachField[x]).length;
+    // Get list of students in each field
+    const studentsPerField = lines.filter((line) => line.split(',')[3] === eachField[x]);
+    // Get list of names in each field
+    const names = studentsPerField.map((student) => student.split(',')[0]);
+    // Log number of students in each field
+    console.log(`Number of students in ${eachField[x]}: ${numStudents}. List: ${names.join(', ')}`);
+    // Add to dictionary
+    dict[eachField[x]] = {
+      numStudents,
+      names,
+    };
   }
-  // Return entire file content as promise
-  return { content };
+  return dict;
 };
 
 module.exports = countStudents;
