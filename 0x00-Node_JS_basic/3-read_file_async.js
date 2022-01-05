@@ -22,7 +22,7 @@ const countStudents = async (path) => {
   // Get unique values of "field" field
   const eachField = [...new Set(field)];
 
-  for (let x = 0; x < eachField.length; x++) {
+  for (let x = 0; x < eachField.length; x += 1) {
     // Return list of students for each field
     const studentsPerField = lines
       // This only works because field is last element in line
@@ -40,7 +40,7 @@ const countStudents = async (path) => {
       }. List: ${studentsPerField.join(', ')}`,
     );
   }
-  // Just for eslint's sake idk
+  // Return entire file content as promise
   return { content };
 };
 
