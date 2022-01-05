@@ -2,18 +2,18 @@
 // Log number of students in database
 // Log number of students in each field as well as their names
 module.exports = countStudents = (path) => {
-  const fs = require("fs");
+  const fs = require('fs');
   try {
     // Get content of file synchronously
     const content = fs.readFileSync(path);
     // Convert to string, split by newline
-    let lines = content.toString().split("\n");
+    let lines = content.toString().split('\n');
     // Filter removes any empty lines, slice removes header
-    lines = lines.filter((line) => line !== "").slice(1);
+    lines = lines.filter((line) => line !== '').slice(1);
     console.log(`Number of students: ${lines.length}`);
 
     // Get list of every "field" field in file
-    const field = lines.map((line) => line.split(",")[3]);
+    const field = lines.map((line) => line.split(',')[3]);
     // Get unique values of "field" field
     eachField = [...new Set(field)];
 
@@ -25,17 +25,17 @@ module.exports = countStudents = (path) => {
         .filter((line) => line.endsWith(fieldName))
         .map((line) => {
           // Split each line by comma into array
-          const stdnt = line.split(",");
+          const stdnt = line.split(',');
           // Return student name (first index)
           return stdnt[0];
         });
       console.log(
         `Number of students in ${fieldName}: ${
           studentPerField.length
-        }. List: ${studentPerField.join(", ")}`
+        }. List: ${studentPerField.join(', ')}`
       );
     }
   } catch {
-    throw new Error("Cannot load the database");
+    throw new Error('Cannot load the database');
   }
 };
