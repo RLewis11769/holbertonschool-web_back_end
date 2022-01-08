@@ -32,8 +32,7 @@ const app = http
           res.end();
         })
         .catch((error) => {
-          res.write(error.message);
-          res.end(error.message);
+          console.log(error);
         });
     }
   })
