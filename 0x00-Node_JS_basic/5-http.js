@@ -28,11 +28,12 @@ const app = http
               res.write('\n');
             }
           }
-          // Need to end response manually bc dict
-          res.end();
         })
         .catch((error) => {
-          console.log(error);
+          res.write(error.message);
+        })
+        .finally(() => {
+          res.end();
         });
     }
   })
