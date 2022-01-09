@@ -45,6 +45,7 @@ class StudentsController {
         if (fields.includes(major)) {
           res.write(`List: ${dict[major].names.join(', ')}`);
         } else {
+          res.status(500);
           res.write('Major parameter must be CS or SWE');
         }
       })
