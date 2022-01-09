@@ -9,7 +9,7 @@ echo '{
     "lint": "./node_modules/.bin/eslint",
     "check-lint": "lint [0-9]*.js",
     "test": "./node_modules/mocha/bin/mocha --require babel-register --exit",
-    "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv"
+    "dev": "nodemon --exec babel-node --presets babel-preset-env ./full_server/server.js ./database.csv"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +32,7 @@ echo '{
   }
 }' > package.json
 
-echo 'module.exports = {
+echo "module.exports = {
   presets: [
     [
       '@babel/preset-env',
@@ -43,9 +43,9 @@ echo 'module.exports = {
       },
     ],
   ],
-};' > babel.config.js
+};" > babel.config.js
   
-echo 'module.exports = {
+echo "module.exports = {
   env: {
     browser: false,
     es6: true,
@@ -81,7 +81,7 @@ echo 'module.exports = {
       excludedFiles: 'babel.config.js',
     }
   ]
-};' > .eslintrc.js
+};" > .eslintrc.js
 
 echo 'firstname,lastname,age,field
 Johann,Kerbrou,30,CS
