@@ -8,10 +8,8 @@ const routes = require('./routes/index');
 const app = express();
 
 // Configure middleware used by routes
-// All are exectued every time request is made no matter what URL is hit
-app.use('/', routes);
-app.use('/students', routes);
-app.use('/students/:major', routes);
+// All are executed every time request is made no matter what URL is hit
+app.use(routes);
 
 app.listen(1245);
 

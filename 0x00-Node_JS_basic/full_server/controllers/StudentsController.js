@@ -38,10 +38,11 @@ class StudentsController {
     // Get info from database (same function as ./3)
     readDatabase(process.argv[2])
       .then((dict) => {
-        // Find key of dict that matches whatever is after /students/ in url
-        // req.params.major or { major } in req.params
-        const major = Object.keys(dict).find((key) => key === req.params.major);
-        if (major) {
+        // List of keys in dict ["CS", "SWE"]
+        const fields = Object.keys(dict);
+        // Matches whatever is after /students/ in url
+        const { major } = req.params;
+        if (fields.includes(major)) {
           res.write(`List: ${dict[major].names.join(', ')}`);
         } else {
           res.write('Major parameter must be CS or SWE');
