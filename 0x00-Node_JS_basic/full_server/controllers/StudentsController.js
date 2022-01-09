@@ -2,15 +2,15 @@
 import readDatabase from '../utils';
 
 class StudentsController {
-  // Student controller
+  // Student controller for /students pages
 
   static getAllStudents(req, res) {
-    // Return rendering for students/ page
+    // Return rendering for /students page
     res.status(200);
-    res.write('This is the list of our students\n');
     // Get info from database (same function as ./3)
     readDatabase(process.argv[2])
       .then((dict) => {
+        res.write('This is the list of our students\n');
         // Key of each dict entry is the field to search
         const fields = Object.keys(dict);
         // Loop through each field
@@ -33,7 +33,7 @@ class StudentsController {
   }
 
   static getAllStudentsByMajor(req, res) {
-    // Return rendering for students/:major pages
+    // Return rendering for /students/:major pages
     res.status(200);
     // Get info from database (same function as ./3)
     readDatabase(process.argv[2])
