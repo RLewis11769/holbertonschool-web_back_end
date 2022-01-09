@@ -13,9 +13,6 @@ class StudentsController {
       .then((dict) => {
         // Key of each dict entry is the field to search
         const fields = Object.keys(dict);
-        // Count all students in all fields
-        const total = fields.reduce((acc, curr) => acc + dict[curr].numStudents, 0);
-        res.write(`Number of students: ${total}\n`);
         // Loop through each field
         for (let x = 0; x < fields.length; x += 1) {
           // Each dict field key has value of dict with numStudents and names as keys
