@@ -9,10 +9,10 @@ const app = http
     if (req.url === '/') {
       res.end('Hello Holberton School!');
     } else if (req.url === '/students') {
+      res.write('This is the list of our students\n');
       // Using argv[2] as path to database file
       await countStudents(process.argv[2])
         .then((dict) => {
-          res.write('This is the list of our students\n');
           // Key of each dict entry is the field to search
           const fields = Object.keys(dict);
           // Count all students in all fields
