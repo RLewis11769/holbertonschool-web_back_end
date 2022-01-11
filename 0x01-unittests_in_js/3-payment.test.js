@@ -7,6 +7,7 @@ describe ('Test suite', () => {
     const spy = sinon.spy(Utils, 'calculateNumber');
     sendPaymentRequestToApi(100, 20);
     spy.calledWith('SUM', 100, 20);
+    spy.calledOnce;
     spy.restore();
   });
 })
