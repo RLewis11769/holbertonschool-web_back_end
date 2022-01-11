@@ -7,6 +7,7 @@ app
   .get('/', (req, res) => {
     res.send('Welcome to the payment system');
   })
+  // Regex verification that id is a number of indeterminate length
   .get('/cart/:id([0-9]*)', (req, res) => {
     res.send(`Payment methods for cart ${req.params.id}`);
   })
