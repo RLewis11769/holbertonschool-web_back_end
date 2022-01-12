@@ -2,9 +2,9 @@
   "name": "8-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
