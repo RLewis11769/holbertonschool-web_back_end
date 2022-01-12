@@ -23,12 +23,12 @@ describe("Test suite for /cart", () => {
       done();
     });
   });
+});
 
+describe("Test suite for /cart", () => {
   it("Test that /cart/:id fails with non-number", (done) => {
     request("http://localhost:7865/cart/fail", (error, response, body) => {
-      if (response) {
-        expect(response.statusCode).to.equal(404);
-      }
+      expect(response.statusCode).to.equal(404);
       done();
     });
   });
