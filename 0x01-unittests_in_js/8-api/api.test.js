@@ -1,4 +1,3 @@
-// const api = require('./api');
 const { expect } = require('chai');
 const request = require('request');
 
@@ -12,4 +11,4 @@ describe ('Test suite', () => {
       done();
     })
   });
-})
+});
