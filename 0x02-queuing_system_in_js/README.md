@@ -15,6 +15,12 @@ src/redis-server &
 src/redis-cli ping
 ```
 
+To dump all data in Redis:
+```
+redis-cli
+FLUSHALL
+```
+
 ## Tasks
 
 ### 0 (dump.rdb)
@@ -25,4 +31,6 @@ src/redis-cli ping
 		ping
 		set Holberton School
 		get Holberton
+		ps aux | grep redis
+		lill [PID]
 		```
