@@ -3,8 +3,8 @@ const kue = require('kue');
 
 const q = kue.createQueue();
 const job = q.create('push_notification_code', {
-  phoneNumber: '',
-  message: ''
+  phoneNumber: '918',
+  message: 'This is the code to verify your account'
   }).save();
 
 job
